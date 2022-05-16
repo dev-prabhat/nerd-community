@@ -1,0 +1,12 @@
+@import url("https://deploy-preview-36--tender-mccarthy-d4aa39.netlify.app/component.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Inter', sans-serif;
+}
