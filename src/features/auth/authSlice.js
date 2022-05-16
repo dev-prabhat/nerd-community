@@ -36,7 +36,7 @@ const authSlice = createSlice({
         },
         [loginUser.fulfilled]:(state,action) => {
             state.isLoading = false
-            localStorage.setItem("token",action.payload.encodedToken)
+            localStorage.setItem("token",action?.payload?.encodedToken)
             state.encodedToken = action.payload.encodedToken
         },
         [loginUser.rejected]:(state,action) => {
