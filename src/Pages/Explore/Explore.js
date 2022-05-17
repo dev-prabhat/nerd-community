@@ -1,4 +1,4 @@
-import { NavBar } from "../../components"
+import { Aside, NavBar } from "../../components"
 import "../commonpage.css"
 
 export const Explore = () => {
@@ -9,7 +9,7 @@ export const Explore = () => {
                 <h1>Explore</h1>
             </div>
             <aside className="sidebar">
-                <h1>Aside</h1>
+                <Aside/>
             </aside>
         </main>
     )

@@ -1,0 +1,15 @@
+.form__wrapper{
+    min-width: 40%;
+    width: 60%;
+    margin: 10px auto;
+}
+
+.form__field{
+    width: 100%;
+}
+
+.posts__wrapper{
+    min-width: 40%;
+    width: 80%;
+    margin: 10px auto;
+}

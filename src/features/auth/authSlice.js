@@ -6,6 +6,7 @@ const initialState = {
     encodedToken : undefined,
     isError:false,
     isLoading:false,
+    user:{}
 }
 
 
@@ -37,6 +38,7 @@ const authSlice = createSlice({
         [loginUser.fulfilled]:(state,action) => {
             state.isLoading = false
             localStorage.setItem("encodedToken",action?.payload?.encodedToken)
+            state.user = action.payload.foundUser
             state.encodedToken = action.payload.encodedToken
         },
         [loginUser.rejected]:(state) => {

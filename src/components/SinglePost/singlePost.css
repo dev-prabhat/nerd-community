@@ -1,0 +1,18 @@
+.singlepost__wrapper{
+    margin: 5px 0;
+    border: 1px solid var(--primary-theme-shade-20);
+    display: flex;
+    align-items: flex-start;
+}
+
+.btn__wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.comment__icon,.like__icon,.bookmark__icon,.dislike__icon{
+    font-size: 1.5rem;
+    color: var(--primary-theme-light-color);
+    cursor: pointer;
+}
