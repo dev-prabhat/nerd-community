@@ -8,7 +8,7 @@ const activeStyle = ({isActive}) => isActive ?
 export const NavBar = () => {
     return(
       <nav className="navbar-wrapper">  
-        <ul class=" list-style-none d-inline_block navbar">
+        <ul className=" list-style-none d-inline_block navbar">
             <li>
                 <NavLink className={activeStyle} to="/home">
                     Home
