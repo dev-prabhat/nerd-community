@@ -1,11 +1,11 @@
 import {useEffect} from "react"
-import { useDispatch ,useSelector} from "react-redux"
+import { useDispatch} from "react-redux"
 import { loginUser , checkLogin } from "../../features/auth/authSlice"
 import "./login.css"
 
 export const Login = () => {
     const dispatch = useDispatch()
-    const {encodedToken} = useSelector(state => state.auth)
+
 
     useEffect(()=>{
         dispatch(checkLogin())
