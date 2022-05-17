@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const initialState = {
-    encodedToken : null,
+    encodedToken : undefined,
     isError:false,
     isLoading:false,
 }
@@ -17,7 +17,7 @@ export const loginUser = createAsyncThunk("auth/login",async ()=>{
         })
         return data
     } catch (error) {
-        console.log(error.response)
+        return error.response
     }
 })
 
@@ -26,7 +26,7 @@ const authSlice = createSlice({
     initialState,
     reducers:{
         checkLogin:(state) => {
-            let token = localStorage.getItem("token")
+            let token = localStorage.getItem("encodedToken")
             state.encodedToken = token
         }
     },
@@ -36,15 +36,15 @@ const authSlice = createSlice({
         },
         [loginUser.fulfilled]:(state,action) => {
             state.isLoading = false
-            localStorage.setItem("token",action?.payload?.encodedToken)
+            localStorage.setItem("encodedToken",action?.payload?.encodedToken)
             state.encodedToken = action.payload.encodedToken
         },
-        [loginUser.rejected]:(state,action) => {
-            console.log(action.payload)
+        [loginUser.rejected]:(state) => {
             state.isError = true
         }
     }
 })
+
 
 export const {checkLogin} = authSlice.actions
 
