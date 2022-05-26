@@ -5,6 +5,10 @@
     align-items: flex-start;
 }
 
+.content__wrapper{
+    width: 100%;
+}
+
 .btn__wrapper{
     display: flex;
     align-items: center;
