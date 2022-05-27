@@ -1,6 +1,6 @@
 .page-main{
     display: grid;
-    grid-template-areas: "navbar page-content page-content page-content page-content sidebar";
+    grid-template-areas: "navbar navbar navbar page-content page-content page-content page-content sidebar sidebar sidebar";
 }
 
 .page-content{
@@ -9,4 +9,5 @@
 
 .sidebar{
     grid-area: sidebar;
+    width: 22vw;
 }

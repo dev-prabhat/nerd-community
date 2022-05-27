@@ -1,5 +1,6 @@
 .navbar-wrapper{
     grid-area: navbar;
+    width: 22vw;
 }
 
 .navbar{
