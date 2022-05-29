@@ -12,7 +12,8 @@ export const Bookmark = () => {
             <NavBar/>
                 <Feed >
                    {
-                       bookmarkPosts && bookmarkPosts.map((post) => (
+                       bookmarkPosts.length === 0 ? <h1>Page is Empty</h1> : 
+                       bookmarkPosts.map((post) => (
                          <SinglePost key={post._id} post={post} isBookmarkedPage={true}/>
                        ))
                    }

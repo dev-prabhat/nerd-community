@@ -26,7 +26,7 @@ export const Home = () => {
         <MainContainer>
             <NavBar/>
             <Feed>
-                <StyledTextAreaWrapper className="form__wrapper">
+                <StyledTextAreaWrapper>
                     <div className="avatar avatar-text avatar-text-sm margin-xs padding-sm">
                        {avatar.slice(0,2).toUpperCase()}
                     </div> 
