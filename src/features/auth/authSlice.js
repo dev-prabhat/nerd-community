@@ -37,7 +37,9 @@ const authSlice = createSlice({
         },
         [loginUser.fulfilled]:(state,{payload}) => {
             state.isLoading = false
-            localStorage.setItem("username",payload?.foundUser?.username)
+            let user = payload?.foundUser
+            user.password = undefined
+            localStorage.setItem("user",JSON.stringify(user))
             localStorage.setItem("encodedToken",payload?.encodedToken)
             state.user = payload.foundUser
             state.encodedToken = payload.encodedToken

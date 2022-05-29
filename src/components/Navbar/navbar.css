@@ -1,13 +1,3 @@
-.navbar-wrapper{
-    grid-area: navbar;
-    width: 22vw;
-}
-
-.navbar{
-    width: 80%;
-    margin: 5vh auto;
-}
-
 .active-style{
     border-left: 2px solid var(--primary-theme-color);
     border-radius: 8px;

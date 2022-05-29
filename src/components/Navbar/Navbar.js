@@ -1,35 +1,27 @@
 import { NavLink } from "react-router-dom"
+import { StyledNav , StyledNavLink} from "../../styled.components"
 import "./navbar.css"
 
 const activeStyle = ({isActive}) => isActive ? 
-"btn-link margin-xs d-block font-weight-semibold text-center active-style" : 
-"btn-link margin-xs d-block font-weight-semibold text-center"
+"btn-link margin-xs d-block font-weight-semibold active-style" : 
+"btn-link margin-xs d-block font-weight-semibold"
+
+const NavArray = ["Home","Bookmark","Explore","Profile"]
 
 export const NavBar = () => {
     return(
-      <nav className="navbar-wrapper">  
-        <ul className=" list-style-none d-inline_block navbar">
-            <li>
-                <NavLink className={activeStyle} to="/home">
-                    Home
-                </NavLink>
-            </li>
-            <li>
-                <NavLink className={activeStyle} to="/bookmark">
-                    Bookmark
-                </NavLink>
-            </li>
-            <li>
-                <NavLink className={activeStyle} to="/explore">
-                    Explore
-                </NavLink>
-            </li>
-            <li>
-                <NavLink className={activeStyle} to="/profile">
-                    Proflie
-                </NavLink>
-            </li>
+      <StyledNav>  
+        <ul>
+            {
+                NavArray.map((navitem) => (
+                    <StyledNavLink key={navitem}>
+                        <NavLink className={activeStyle} to={`/${navitem.toLowerCase()}`}> 
+                            {navitem}
+                        </NavLink>
+                    </StyledNavLink>
+                ))
+            }
           </ul>
-      </nav>
+      </StyledNav>
     )
 }

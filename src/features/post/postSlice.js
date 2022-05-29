@@ -3,10 +3,12 @@ import axios from "axios"
 
 const initialState = {
     posts:[],
+    bookmarkPosts:[],
     isLoading:false,
     isRejected:false,
     isLike:false,
-    isDisLike:false
+    isDisLike:false,
+    isBookMark:false
 }
 
 export const getPosts = createAsyncThunk("posts/data", async (_,{rejectWithValue}) => {
@@ -47,6 +49,27 @@ export const dislikePost = createAsyncThunk("post/dislike",async(postId,{rejectW
         return rejectWithValue([],error)
     }
 })
+
+export const addToBookmark = createAsyncThunk("addtobookmark/post",async(postId,{rejectWithValue})=>{
+    try {
+        const { data } = await axios.post(`/api/users/bookmark/${postId}`,{},
+        {headers:{"authorization": localStorage.getItem("encodedToken")}})
+        return data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)
+    }
+})
+
+export const removeFromBookmark = createAsyncThunk("removefrombookmark/post",async(postId,{rejectWithValue})=>{
+    try {
+        const { data } = await axios.post(`/api/users/remove-bookmark/${postId}`,{},
+        {headers:{"authorization": localStorage.getItem("encodedToken")}})
+        return data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)        
+    }
+})
+
 
 const postSlice =  createSlice({
     name:"posts",
@@ -94,7 +117,28 @@ const postSlice =  createSlice({
        [dislikePost.rejected]:(state,{payload})=>{
            state.isDisLike = true
            state.posts = payload.posts
+       },
+       [addToBookmark.pending]:(state) => {
+           state.isBookMark = true
+       },
+       [addToBookmark.fulfilled]:(state,{payload})=>{
+           state.isBookMark = false
+           state.bookmarkPosts = payload.bookmarks
+       },
+       [addToBookmark.rejected]:(_,{payload})=>{
+           console.log(payload)
+       },
+       [removeFromBookmark.pending]:(state) => {
+           state.isBookMark = true
+       },
+       [removeFromBookmark.fulfilled]:(state,{payload}) => {
+           state.isBookMark = false
+           state.bookmarkPosts = payload.bookmarks
+       },
+       [removeFromBookmark.rejected]:(_,{payload})=>{
+           console.log(payload)
        }
+       
     }
 })
 
