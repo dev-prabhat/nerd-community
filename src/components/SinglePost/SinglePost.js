@@ -9,9 +9,11 @@ import "./singlePost.css"
 
 
 export const SinglePost = ({post , isBookmarkedPage = false}) => {
-    const {_id, content,username ,likes} = post
+    const {_id, content,username ,likes :  {likedBy} } = post
     const {bookmarkPosts} = useSelector(state => state.post)
-    const {likeCount} = likes
+    const {user} = useSelector(state => state.auth)
+
+    const isLiked = likedBy.findIndex(like => like._id === user._id) === -1 ? false : true
     const isBookMarked = bookmarkPosts.findIndex(post => post._id === _id) === -1 ? false : true
     const dispatch = useDispatch()
 
@@ -28,9 +30,9 @@ export const SinglePost = ({post , isBookmarkedPage = false}) => {
                 <div className="btn__wrapper padding-xs">
                    <BiComment className="comment__icon"/>
                     {
-                      likeCount === 0 ? 
-                      <FaRegHeart className="like__icon"onClick={()=>dispatch(likePost(_id))} /> :
-                      <FaHeart className="dislike__icon" onClick={()=>dispatch(dislikePost(_id))}/>
+                      isLiked ? 
+                      <FaHeart className="dislike__icon" onClick={()=>dispatch(dislikePost(_id))}/> :
+                      <FaRegHeart className="like__icon"onClick={()=>dispatch(likePost(_id))} /> 
                     }
                     {
                       isBookMarked ? 
