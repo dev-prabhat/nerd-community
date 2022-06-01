@@ -1,11 +1,12 @@
 import { createSlice , createAsyncThunk} from "@reduxjs/toolkit"
+import toast from "react-hot-toast"
 import axios from "axios"
 
 const initialState = {
     posts:[],
     bookmarkPosts:[],
     isLoading:false,
-    isRejected:false,
+    isNewPostAdded:false,
     isLike:false,
     isDisLike:false,
     isBookMark:false
@@ -26,7 +27,7 @@ export const addNewPost = createAsyncThunk("post/addnewPost",async (postObj,{rej
         {headers:{"authorization": localStorage.getItem("encodedToken")}})
         return data
     }catch(error){
-        return rejectWithValue([],error)
+        return rejectWithValue(error.response.data.message)
     }
 })
 
@@ -36,7 +37,7 @@ export const likePost = createAsyncThunk("post/likepost",async (postId,{rejectWi
         {headers:{"authorization": localStorage.getItem("encodedToken")}})
         return data
     } catch (error) {
-        return rejectWithValue([],error)        
+        return rejectWithValue(error.response.data.message)        
     }
 })
 
@@ -46,7 +47,7 @@ export const dislikePost = createAsyncThunk("post/dislike",async(postId,{rejectW
         {headers:{"authorization": localStorage.getItem("encodedToken")}})
         return data
     } catch (error) {
-        return rejectWithValue([],error)
+        return rejectWithValue(error.response.data.message)
     }
 })
 
@@ -83,18 +84,19 @@ const postSlice =  createSlice({
            state.posts = payload.posts
        },
        [getPosts.rejected]:(state) => {
-           state.isRejected = true
-       },
-       [addNewPost.pending]:(state) => {
            state.isLoading = true
        },
+       [addNewPost.pending]:(state) => {
+           state.isNewPostAdded = true
+       },
        [addNewPost.fulfilled]:(state,{payload}) => {
-           state.isLoading = false
+           state.isNewPostAdded = false
            state.posts = payload.posts
+           toast.success("Added new Post",{duration:1000})
        },
        [addNewPost.rejected]:(state,{payload}) => {
-           state.isRejected = true
-           state.posts = payload.posts
+           state.isNewPostAdded = false
+           toast.error(payload,{duration:1000})
        },
        [likePost.pending]:(state) => {
            state.isLike = true
@@ -102,10 +104,10 @@ const postSlice =  createSlice({
        [likePost.fulfilled]:(state,{payload}) => {
            state.isLike = false
            state.posts = payload.posts
+           toast.success("Like post",{duration:1000})
        },
-       [likePost.rejected]:(state,{payload}) => {
-           state.isRejected = true
-           state.posts = payload.posts
+       [likePost.rejected]:(_,{payload}) => {
+           toast.error(payload,{duration:1000})
        },
        [dislikePost.pending]:(state) => {
            state.isDisLike = true
@@ -113,10 +115,11 @@ const postSlice =  createSlice({
        [dislikePost.fulfilled]:(state,{payload}) => {
            state.isDisLike = false
            state.posts = payload.posts
+           toast.success("Unlike post",{duration:1000})
        },
        [dislikePost.rejected]:(state,{payload})=>{
-           state.isDisLike = true
-           state.posts = payload.posts
+           state.isDisLike = false
+           toast.error(payload,{duration:1000})
        },
        [addToBookmark.pending]:(state) => {
            state.isBookMark = true
@@ -124,9 +127,11 @@ const postSlice =  createSlice({
        [addToBookmark.fulfilled]:(state,{payload})=>{
            state.isBookMark = false
            state.bookmarkPosts = payload.bookmarks
+           toast.success("Added to bookmark",{duration:1000})
        },
-       [addToBookmark.rejected]:(_,{payload})=>{
-           console.log(payload)
+       [addToBookmark.rejected]:(state,{payload})=>{
+           state.isBookMark = false
+           toast.error(payload,{duration:1000})
        },
        [removeFromBookmark.pending]:(state) => {
            state.isBookMark = true
@@ -134,9 +139,11 @@ const postSlice =  createSlice({
        [removeFromBookmark.fulfilled]:(state,{payload}) => {
            state.isBookMark = false
            state.bookmarkPosts = payload.bookmarks
+           toast.success("Remove from bookmark",{duration:1000})
        },
-       [removeFromBookmark.rejected]:(_,{payload})=>{
-           console.log(payload)
+       [removeFromBookmark.rejected]:(state,{payload})=>{
+           state.isBookMark = false
+           toast.error(payload,{duration:1000})
        }
        
     }

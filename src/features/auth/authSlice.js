@@ -1,16 +1,17 @@
 import { createSlice , createAsyncThunk} from "@reduxjs/toolkit";
+import toast from 'react-hot-toast';
 import axios from "axios";
-
 
 const initialState = {
     encodedToken : undefined,
-    isError:false,
     isLoading:false,
-    user:{}
+    LoadingUsers:false,
+    users:[],
+    loggedUser:{}
 }
 
 
-export const loginUser = createAsyncThunk("auth/login",async ()=>{
+export const loginUser = createAsyncThunk("auth/login",async (_,{rejectWithValue})=>{
     try {
         const { data }  = await axios.post("/api/auth/login",{
             username: "adarshbalika",
@@ -18,7 +19,36 @@ export const loginUser = createAsyncThunk("auth/login",async ()=>{
         })
         return data
     } catch (error) {
-        return error.response
+        return rejectWithValue(error.response.data.message)
+    }
+})
+
+export const getUsers = createAsyncThunk("user/data",async(_,{rejectWithValue})=>{
+   try {
+       const { data } = await axios.get("/api/users")
+       return data
+   } catch (error) {
+      return rejectWithValue(error.response.data.message)     
+   }
+})
+
+export const followUserFromDB = createAsyncThunk("follow/user",async(followUserId,{rejectWithValue})=>{
+    try {
+        const { data } = await axios.post(`/api/users/follow/${followUserId}`,{},
+        {headers:{"authorization": localStorage.getItem("encodedToken")}})
+        return data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)        
+    }
+})
+
+export const unfollowUserFromDB = createAsyncThunk("unfollow/user",async(followUserId,{rejectWithValue})=>{
+    try {
+        const { data } = await axios.post(`/api/users/unfollow/${followUserId}`,{},
+        {headers:{"authorization": localStorage.getItem("encodedToken")}})
+        return data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)        
     }
 })
 
@@ -28,7 +58,9 @@ const authSlice = createSlice({
     reducers:{
         checkLogin:(state) => {
             let token = localStorage.getItem("encodedToken")
+            state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             state.encodedToken = token
+            toast.success(`Login with ${state?.loggedUser?.username}`,{duration:2000})
         }
     },
     extraReducers:{
@@ -39,13 +71,54 @@ const authSlice = createSlice({
             state.isLoading = false
             let user = payload?.foundUser
             user.password = undefined
-            localStorage.setItem("user",JSON.stringify(user))
+            localStorage.setItem("loggedUser",JSON.stringify(user))
             localStorage.setItem("encodedToken",payload?.encodedToken)
-            state.user = payload.foundUser
+            state.loggedUser = payload.foundUser
             state.encodedToken = payload.encodedToken
+            toast.success("Login Successfully",{duration:1000})
         }, 
-        [loginUser.rejected]:(state) => {
-            state.isError = true
+        [loginUser.rejected]:(state,{payload}) => {
+            state.isLoading = false
+            toast.error(payload,{duration:1000})
+        },
+        [getUsers.pending]:(state) => {
+            state.LoadingUsers = true
+        },
+        [getUsers.fulfilled]:(state,{payload})=>{
+            state.LoadingUsers = false
+            state.users = payload.users
+        },
+        [getUsers.rejected]:(state,{payload})=>{
+            state.LoadingUsers = false
+            toast.error(payload,{duration:1000})
+        },
+        [followUserFromDB.pending]:(state)=>{
+            state.isLoading = true
+        },
+        [followUserFromDB.fulfilled]:(state,{payload})=>{
+            state.isLoading = false
+            state.loggedUser = payload?.user
+            localStorage.removeItem("loggedUser")
+            localStorage.setItem("loggedUser",JSON.stringify(payload?.user))
+            toast.success("Successfully followed",{duration:1000})
+        },
+        [followUserFromDB.rejected]:(state,{payload})=>{
+            state.isLoading = false
+            toast.error(payload,{duration:1000})
+        },
+        [unfollowUserFromDB.pending]:(state)=>{
+            state.isLoading = true
+        },
+        [unfollowUserFromDB.fulfilled]:(state,{payload})=>{
+            state.isLoading = false
+            state.loggedUser = payload?.user
+            localStorage.removeItem("loggedUser")
+            localStorage.setItem("loggedUser",JSON.stringify(payload?.user))
+            toast.success("Successfully unfollowed",{duration:1000})
+        },
+        [unfollowUserFromDB.rejected]:(state,{payload})=>{
+            state.isLoading = false
+            toast.error(payload,{duration:1000})
         }
     }
 })

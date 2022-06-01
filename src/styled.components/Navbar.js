@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 const StyledNav = styled.nav`
     grid-area: navbar;
-    width: 20vw;
     border-right: 1px solid ${({theme}) => theme.colors.darkThemeLightColor};
     ul {
         list-style-type: none;

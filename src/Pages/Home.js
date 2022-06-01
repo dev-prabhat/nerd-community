@@ -1,21 +1,17 @@
-import { useEffect , useState} from "react"
+import { useState} from "react"
 import { useDispatch , useSelector} from "react-redux"
-import { getPosts , addNewPost} from "../features/post/postSlice"
+import {  addNewPost} from "../features/post/postSlice"
 import { NavBar, SinglePost , Aside} from "../components"
 import { StyledTextArea, StyledTextAreaWrapper ,MainContainer,Feed} from "../styled.components"
 
 export const Home = () => {
     const [postObj, setPostObj] = useState({content:""})
-    const {posts,isLoading}  = useSelector(state => state.post)
+    const {posts}  = useSelector(state => state.post)
     const reversePosts = [...posts].reverse()
     const dispatch = useDispatch()
 
-    const user = JSON.parse(localStorage.getItem("user"))
-    const avatar = user.firstName.slice(0,1) + user.lastName.slice(0,1)
-    
-    useEffect(()=>{
-        dispatch(getPosts())
-    },[])
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+    const avatar = loggedUser.firstName.slice(0,1) + loggedUser.lastName.slice(0,1)
 
     const postHandler = () => {
         dispatch(addNewPost(postObj))
@@ -44,7 +40,6 @@ export const Home = () => {
                 
                 <div>
                     {
-                      isLoading ? <h1 className="text-center">loading...</h1> :
                       reversePosts.map(post => (
                             <SinglePost key={post._id} post={post}/>
                         ))
