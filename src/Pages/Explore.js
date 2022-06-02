@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 
 export const Explore = () => {
     const {posts} = useSelector(state => state.post)
-    console.log(posts)
+   
     return(
         <MainContainer >
             <NavBar/>
