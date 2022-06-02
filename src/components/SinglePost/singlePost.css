@@ -1,5 +1,6 @@
 .content__wrapper{
     width: 100%;
+    word-break: break-all;
 }
 
 .btn__wrapper{

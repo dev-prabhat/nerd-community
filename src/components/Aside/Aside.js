@@ -1,8 +1,16 @@
 import { MdSearch } from "react-icons/md";
 import { StyledSidebar } from "../../styled.components";
+import { useSelector } from "react-redux";
+import { FollowUser } from "../FollowUser/FollowUser";
 import "./aside.css"
 
+
 export const Aside = () => {
+  const {users} = useSelector(state => state.auth)
+  const loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+  const usersExceptLoggedUser = [...users].filter(user => user.username !== loggedUser.username)
+
+
     return(
       <StyledSidebar>
           <div className="search__wrapper">
@@ -11,6 +19,13 @@ export const Aside = () => {
                 type="text" 
                 placeholder="Search user here"/>
               <MdSearch className="search__icon"/>
+          </div>
+          <div className="users__wrapper">
+             {
+               usersExceptLoggedUser.map(user => (
+                 <FollowUser key={user._id} user={user}/>
+               ))
+             }
           </div>
       </StyledSidebar>
     )

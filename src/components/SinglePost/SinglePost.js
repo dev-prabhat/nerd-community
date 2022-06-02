@@ -9,20 +9,24 @@ import "./singlePost.css"
 
 
 export const SinglePost = ({post , isBookmarkedPage = false}) => {
-    const {_id, content,username ,likes :  {likedBy} } = post
+    const {_id, content,username,likes :  {likedBy} } = post
     const {bookmarkPosts} = useSelector(state => state.post)
-    const {user} = useSelector(state => state.auth)
+    const {loggedUser} = useSelector(state => state.auth)
 
-    const isLiked = likedBy.findIndex(like => like._id === user._id) === -1 ? false : true
+    const isLiked = likedBy.findIndex(like => like._id === loggedUser._id) === -1 ? false : true
     const isBookMarked = bookmarkPosts.findIndex(post => post._id === _id) === -1 ? false : true
     const dispatch = useDispatch()
 
     return(
         <StyledPost>
+          <div>
             <div className="avatar avatar-text avatar-text-sm margin-xs padding-sm">
                 {username.slice(0,2).toUpperCase()}
             </div>
+            <h5 className="text-gray">@{username}</h5>
+          </div>
             <div className="content__wrapper">
+              
                <p className="text-sm margin-xs">{content}</p>
                {
                    isBookmarkedPage ? 

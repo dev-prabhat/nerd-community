@@ -10,12 +10,14 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore.",
+      "At vero eos et accusamus et iusto odio dignissimos ducimus qui.",
     likes: {
       likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
+    firstName: "Adarsh",
+    lastName: "Balika",
     username: "adarshbalika",
     createdAt: formatDate(),
     updatedAt: formatDate(),
@@ -23,12 +25,14 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore.",
+      "At vero eos et accusamus et iusto odio dignissimos.",
     likes: {
       likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
+    firstName: "Adarsh",
+    lastName: "Balika",
     username: "adarshbalika",
     createdAt: formatDate(),
     updatedAt: formatDate(),
@@ -36,39 +40,120 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore.",
+      "Ohh I just fell asleep while watching Thor the Dark World",
     likes: {
       likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
-    username: "adarshbalika",
+    firstName: "Thor",
+    lastName: "OdinSon",
+    username: "thorOdinson",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore.",
+      "I can do this all day , It is not just a dialogue but an emotion",
     likes: {
       likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
-    username: "adarshbalika",
+    firstName: "Steve",
+    lastName: "Rogers",
+    username: "captianAmerica",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore.",
+      "Keep reacting on JS code , so that I can became a good React Developer",
     likes: {
       likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
-    username: "shubhamsoni",
+    firstName: "Prabhat",
+    lastName: "Singh",
+    username: "prabhatsingh",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+  {
+    _id: uuid(),
+    content:
+      "I'm a mechanic who try to bring peace in this world , if IYKYK",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    firstName: "Tony",
+    lastName: "Stark",
+    username: "starkTech",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+  {
+    _id: uuid(),
+    content:
+      "Having a Love n Hate relationship with Javascript",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    firstName: "Prabhat",
+    lastName: "Singh",
+    username: "prabhatsingh",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+  {
+    _id: uuid(),
+    content:
+      "Doing write thing can make you good person but doing right thing at the right moment you became the leader.",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    firstName: "Steve",
+    lastName: "Rogers",
+    username: "captianAmerica",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+  {
+    _id: uuid(),
+    content:
+      "I'm Thor God of thunder who get electric shocked by small chip , Thor : Ragnarok I'm talking about you",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    firstName: "Thor",
+    lastName: "OdinSon",
+    username: "thorOdinson",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+  {
+    _id: uuid(),
+    content:
+      "Using my technology and not giving me credit is not funny",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    firstName: "Tony",
+    lastName: "Stark",
+    username: "starkTech",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
