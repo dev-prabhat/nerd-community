@@ -1,15 +1,19 @@
-import { likePost , dislikePost , addToBookmark , removeFromBookmark } from "../../features/post/postSlice"; 
+import { useState } from "react";
+import { likePost , dislikePost , addToBookmark , removeFromBookmark , deletePost} from "../../features/post/postSlice"; 
 import { useDispatch , useSelector} from "react-redux";
 import { StyledPost } from "../../styled.components";
+import { FlexContainer, RowFlexContainer } from "../../styled.components/Post";
 
-import { BiComment } from "react-icons/bi";
+import { GoKebabVertical } from "react-icons/go";
+import { BiComment , BiEdit, BiTrash} from "react-icons/bi";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { MdBookmarkBorder , MdBookmark } from "react-icons/md";
 import "./singlePost.css"
 
 
-export const SinglePost = ({post , isBookmarkedPage = false}) => {
-    const {_id, content,username,likes :  {likedBy} } = post
+export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = false}) => {
+    const [showOptionContainer, setShowOptionContainer] = useState(false)
+    const {_id, content,username,avatarURL,likes :  {likedBy} } = post
     const {bookmarkPosts} = useSelector(state => state.post)
     const {loggedUser} = useSelector(state => state.auth)
 
@@ -19,14 +23,35 @@ export const SinglePost = ({post , isBookmarkedPage = false}) => {
 
     return(
         <StyledPost>
-          <div>
-            <div className="avatar avatar-text avatar-text-sm margin-xs padding-sm">
-                {username.slice(0,2).toUpperCase()}
+          <FlexContainer className="position-rel">
+           <RowFlexContainer>
+            <div className="avatar avatar-sm margin-xs">
+                <img
+                class="img-responsive img-round "
+                src={avatarURL}
+                alt="avatar"
+                />
             </div>
-            <h5 className="text-gray">@{username}</h5>
-          </div>
+            <h5 className="text-gray margin-xs">@{username}</h5>
+          </RowFlexContainer>
+              {isProfilePage && <div className="options__wrapper border-radius-xs">
+                  {showOptionContainer &&<>
+                      <div className="margin-xs d-flex icon__wrapper"> 
+                         <BiEdit className="edit__icon"/> Edit 
+                      </div>
+                      <div className="margin-xs d-flex icon__wrapper" onClick={()=>dispatch(deletePost(_id))}> 
+                        <BiTrash className="delete__icon"/> 
+                          Delete
+                      </div>
+                    </>}
+                </div>}
+                {
+                  isProfilePage &&
+                  <GoKebabVertical className="menu__icon" 
+                  onClick={()=>setShowOptionContainer(prev => !prev)} />
+                }        
+          </FlexContainer>
             <div className="content__wrapper">
-              
                <p className="text-sm margin-xs">{content}</p>
                {
                    isBookmarkedPage ? 
@@ -44,7 +69,7 @@ export const SinglePost = ({post , isBookmarkedPage = false}) => {
                       <MdBookmarkBorder className="bookmark__icon" onClick={()=>dispatch(addToBookmark(_id))}/>
                     }
                  </div>
-               } 
+               }  
             </div>
         </StyledPost>
     )

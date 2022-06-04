@@ -4,6 +4,7 @@ import { StyledNav , StyledNavLink} from "./Navbar"
 import { StyledSidebar }  from "./Sidebar"
 import { StyledPost } from "./Post"
 import { StyledTextAreaWrapper , StyledTextArea} from "./TextArea"
+import { StyledModalWrapper , StyledModal , StyledCloseButton} from "./Modal"
 
 export {
     MainContainer,
@@ -13,5 +14,8 @@ export {
     StyledSidebar,
     StyledPost,
     StyledTextArea,
-    StyledTextAreaWrapper
+    StyledTextAreaWrapper,
+    StyledModalWrapper, 
+    StyledModal,
+    StyledCloseButton
 }

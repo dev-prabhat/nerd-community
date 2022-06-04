@@ -2,6 +2,8 @@ import styled from "styled-components"
 
 const StyledNav = styled.nav`
     grid-area: navbar;
+    width: 20vw;
+    margin: 0 auto;
     border-right: 1px solid ${({theme}) => theme.colors.darkThemeLightColor};
     ul {
         list-style-type: none;
@@ -9,7 +11,6 @@ const StyledNav = styled.nav`
 `
 
 const StyledNavLink = styled.li`
-    width: 80%;
     font-size: 1.5rem;
 `
 

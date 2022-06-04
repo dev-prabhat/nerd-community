@@ -9,7 +9,8 @@ const initialState = {
     isNewPostAdded:false,
     isLike:false,
     isDisLike:false,
-    isBookMark:false
+    isBookMark:false,
+    isDelete:false
 }
 
 export const getPosts = createAsyncThunk("posts/data", async (_,{rejectWithValue}) => {
@@ -27,6 +28,16 @@ export const addNewPost = createAsyncThunk("post/addnewPost",async (postObj,{rej
         {headers:{"authorization": localStorage.getItem("encodedToken")}})
         return data
     }catch(error){
+        return rejectWithValue(error.response.data.message)
+    }
+})
+
+export const deletePost = createAsyncThunk("post/deletePost", async(postId,{rejectWithValue})=>{
+    try {
+        const { data } = await axios.delete(`/api/posts/${postId}`,
+        {headers:{"authorization": localStorage.getItem("encodedToken")}})
+        return data
+    } catch (error) {
         return rejectWithValue(error.response.data.message)
     }
 })
@@ -97,6 +108,18 @@ const postSlice =  createSlice({
        [addNewPost.rejected]:(state,{payload}) => {
            state.isNewPostAdded = false
            toast.error(payload,{duration:1000})
+       },
+       [deletePost.pending]:(state)=>{
+           state.isDelete = true
+       },
+       [deletePost.fulfilled]:(state,{payload})=>{
+           state.isDelete = false
+           state.posts = payload.posts
+           toast.success("Post Deleted",{duration:1000})
+       },
+       [deletePost.rejected]:(state,{payload})=>{
+          state.isDelete = false
+          toast.error(payload,{duration:1000})
        },
        [likePost.pending]:(state) => {
            state.isLike = true

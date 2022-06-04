@@ -5,9 +5,13 @@ const PrimaryStyledButton = styled.button`
     padding: 0.5rem;
     margin: 0.5rem;
     background-color: ${({theme}) => theme.colors.primaryThemeColor};
-    border-radius: 2rem;
+    border-radius: 1rem;
     color: ${({theme}) => theme.colors.secondaryThemeColor};
     cursor: pointer;
 `
 
-export { PrimaryStyledButton }
+const PrimaryPostButton = styled(PrimaryStyledButton)`
+   font-size:1.5rem;
+`
+
+export { PrimaryStyledButton ,PrimaryPostButton}
