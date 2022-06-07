@@ -2,8 +2,7 @@ import { useState} from "react"
 import { useDispatch , useSelector} from "react-redux"
 import { addNewPost} from "../features/post/postSlice"
 import { NavBar, SinglePost , Aside} from "../components"
-import { StyledTextArea, StyledTextAreaWrapper ,MainContainer,Feed} from "../styled.components"
-import { PrimaryStyledButton } from "../styled.components/Button"
+import { StyledTextArea, StyledTextAreaWrapper, MainContainer, Feed, PrimaryStyledButton} from "../styled.components"
 
 export const Home = () => {
     const [postObj, setPostObj] = useState({content:""})
@@ -25,7 +24,7 @@ export const Home = () => {
                 <StyledTextAreaWrapper>
                     <div className="avatar avatar-sm ">
                         <img
-                        class="img-responsive img-round "
+                        className="img-responsive img-round "
                         src={avatarURL}
                         alt="avatar"
                         />

@@ -26,7 +26,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos.",
+      " et accusamus et iusto odio dignissimos.",
     likes: {
       likeCount: 0,
       likedBy: [],

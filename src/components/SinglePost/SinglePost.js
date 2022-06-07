@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { likePost , dislikePost , addToBookmark , removeFromBookmark , deletePost} from "../../features/post/postSlice"; 
 import { useDispatch , useSelector} from "react-redux";
-import { StyledPost } from "../../styled.components";
+import { likePost , dislikePost , addToBookmark , removeFromBookmark , deletePost,  editPost } from "../../features/post/postSlice"; 
+import { LocalModal } from "../LocalModal"
+import { StyledPost , StyledTextAreaWithBorder, PrimaryStyledButton} from "../../styled.components";
 import { FlexContainer, RowFlexContainer } from "../../styled.components/Post";
 
 import { GoKebabVertical } from "react-icons/go";
@@ -12,8 +13,10 @@ import "./singlePost.css"
 
 
 export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = false}) => {
-    const [showOptionContainer, setShowOptionContainer] = useState(false)
+    const [showModal, setShowModal] = useState(false)
     const {_id, content,username,avatarURL,likes :  {likedBy} } = post
+    const [showOptionContainer, setShowOptionContainer] = useState(false)
+    const [editSinglePost, setEditSinglePost] = useState({...post})
     const {bookmarkPosts} = useSelector(state => state.post)
     const {loggedUser} = useSelector(state => state.auth)
 
@@ -21,13 +24,23 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
     const isBookMarked = bookmarkPosts.findIndex(post => post._id === _id) === -1 ? false : true
     const dispatch = useDispatch()
 
+    const OpenModal = () => {
+      setShowModal(prev => !prev)
+      setShowOptionContainer(prev => !prev)
+    }
+
+    const handleEdit = () => {
+      dispatch(editPost(editSinglePost))
+      setShowModal(prev => !prev)
+    }
+
     return(
         <StyledPost>
           <FlexContainer className="position-rel">
            <RowFlexContainer>
             <div className="avatar avatar-sm margin-xs">
                 <img
-                class="img-responsive img-round "
+                className="img-responsive img-round "
                 src={avatarURL}
                 alt="avatar"
                 />
@@ -36,7 +49,7 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
           </RowFlexContainer>
               {isProfilePage && <div className="options__wrapper border-radius-xs">
                   {showOptionContainer &&<>
-                      <div className="margin-xs d-flex icon__wrapper"> 
+                      <div className="margin-xs d-flex icon__wrapper" onClick={()=>OpenModal(_id)}> 
                          <BiEdit className="edit__icon"/> Edit 
                       </div>
                       <div className="margin-xs d-flex icon__wrapper" onClick={()=>dispatch(deletePost(_id))}> 
@@ -71,6 +84,18 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
                  </div>
                }  
             </div>
+            <LocalModal isModal={showModal} CloseModal={setShowModal} >
+              <div className="margin-xs">
+                  <StyledTextAreaWithBorder
+                  rows="4" 
+                  cols="50"
+                  placeholder="Write your thought..."
+                  onChange={(e)=>setEditSinglePost(prev => ({...prev,content:e.target.value}))}
+                  value={editSinglePost.content}
+                  />
+                <PrimaryStyledButton onClick={handleEdit}>Post</PrimaryStyledButton>
+              </div>
+            </LocalModal>
         </StyledPost>
     )
 }

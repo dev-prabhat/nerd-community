@@ -14,4 +14,4 @@ const PrimaryPostButton = styled(PrimaryStyledButton)`
    font-size:1.5rem;
 `
 
-export { PrimaryStyledButton ,PrimaryPostButton}
+export { PrimaryStyledButton , PrimaryPostButton}

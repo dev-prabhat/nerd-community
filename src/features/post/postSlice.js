@@ -7,6 +7,7 @@ const initialState = {
     bookmarkPosts:[],
     isLoading:false,
     isNewPostAdded:false,
+    isPostEdit:false,
     isLike:false,
     isDisLike:false,
     isBookMark:false,
@@ -30,6 +31,16 @@ export const addNewPost = createAsyncThunk("post/addnewPost",async (postObj,{rej
     }catch(error){
         return rejectWithValue(error.response.data.message)
     }
+})
+
+export const editPost = createAsyncThunk("post/editpost",async(editObj,{rejectWithValue})=>{
+   try {
+       const { data } = await axios.post(`/api/posts/edit/${editObj._id}`,{postData:editObj},
+       {headers:{"authorization": localStorage.getItem("encodedToken")}})
+       return data
+   } catch (error) {
+       return rejectWithValue(error.response.data.message)
+   }
 })
 
 export const deletePost = createAsyncThunk("post/deletePost", async(postId,{rejectWithValue})=>{
@@ -107,6 +118,17 @@ const postSlice =  createSlice({
        },
        [addNewPost.rejected]:(state,{payload}) => {
            state.isNewPostAdded = false
+           toast.error(payload,{duration:1000})
+       },
+       [editPost.pending]:(state)=>{
+           state.isPostEdit = true
+       },
+       [editPost.fulfilled]:(state,{payload})=>{
+           state.isPostEdit = false
+           state.posts = payload.posts
+       },
+       [editPost.rejected]:(state,{payload})=>{
+           state.isPostEdit = false
            toast.error(payload,{duration:1000})
        },
        [deletePost.pending]:(state)=>{

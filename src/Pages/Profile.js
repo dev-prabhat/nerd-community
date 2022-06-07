@@ -1,17 +1,13 @@
 import { useState } from "react"
 import { useSelector , useDispatch} from "react-redux"
-import { OpenEditProfileModal , CloseEditProfileModal} from "../features/modal/modalSlice"
-import { Aside, Modal, NavBar, SinglePost } from "../components"
+import { Aside, LocalModal, NavBar, SinglePost } from "../components"
 import { editUserProfile } from "../features/auth/authSlice"
-import { MainContainer , Feed} from "../styled.components"
-import { PrimaryStyledButton } from "../styled.components/Button"
-import { StyledProfileWrapper } from "../styled.components/ProfileWrapper"
-import { StyledTextAreaWithBorder } from "../styled.components/TextArea"
+import { MainContainer, Feed, PrimaryStyledButton, StyledProfileWrapper, StyledTextAreaWithBorder} from "../styled.components"
 
 export const Profile = () => {
+    const [isModal, setIsModal] = useState(false)
     const {posts} = useSelector(state => state.post)
     const {loggedUser} = useSelector(state => state.auth)
-    const {isEditProfileModal} = useSelector(state => state.modal)
     const initialState = {...loggedUser}
     const {username,firstName,lastName,bio,avatarURL} = loggedUser
     const [editProfileData, setEditProfileData] = useState(initialState)
@@ -19,7 +15,7 @@ export const Profile = () => {
     const dispatch = useDispatch()
 
     const handleSubmit = () => {
-        dispatch(CloseEditProfileModal())
+        setIsModal(prev => !prev)
         dispatch(editUserProfile(editProfileData))
     }
 
@@ -30,7 +26,7 @@ export const Profile = () => {
                     <StyledProfileWrapper>
                         <div className="avatar avatar-md ">
                             <img
-                            class="img-responsive img-round "
+                            className="img-responsive img-round "
                             src={avatarURL}
                             alt="avatar"
                             />
@@ -40,14 +36,14 @@ export const Profile = () => {
                             <h2 className="head-sm text-gray">@{username}</h2>
                             <p className="text-sm">{bio}</p>
                         </div>
-                        <PrimaryStyledButton onClick={()=>dispatch(OpenEditProfileModal())}>Edit Profile</PrimaryStyledButton>
+                        <PrimaryStyledButton onClick={()=>setIsModal(prev => !prev)}>Edit Profile</PrimaryStyledButton>
                     </StyledProfileWrapper>
                     {
                         loggedUserPost.map(post => (
                             <SinglePost key={post._id} post={post} isProfilePage={true}/>
                         ))   
                     }
-                    <Modal CloseModal={CloseEditProfileModal} isModal={isEditProfileModal}>
+                    <LocalModal CloseModal={setIsModal} isModal={isModal}>
                         <div>
                             <label className="form-label">FirstName</label>
                             <input
@@ -80,7 +76,7 @@ export const Profile = () => {
                             />
                             <PrimaryStyledButton onClick={handleSubmit}>Save</PrimaryStyledButton>
                         </div>
-                    </Modal>
+                    </LocalModal>
                 </Feed>
             <Aside/>
         </MainContainer>

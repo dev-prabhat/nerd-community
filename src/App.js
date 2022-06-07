@@ -6,12 +6,13 @@ import { getPosts } from "./features/post/postSlice";
 import { addNewPost } from "./features/post/postSlice";
 import { ClosePostModal } from "./features/modal/modalSlice";
 import { Toaster } from 'react-hot-toast';
-import {  AuthRoute, Modal, PrivateRoute } from "./components";
+import {  AuthRoute, GlobalModal, PrivateRoute } from "./components";
+import { PrimaryStyledButton } from "./styled.components/Button";
+import { StyledTextAreaWithBorder } from "./styled.components/TextArea";
 import { Login, Home, Profile, Explore, Bookmark, Mock} from "./Pages"
 
 import "./style.css"
-import { StyledTextArea } from "./styled.components";
-import { PrimaryStyledButton } from "./styled.components/Button";
+
 
 function App() {
   const [postObj, setPostObj] = useState({content:""})
@@ -34,9 +35,9 @@ function App() {
 
   return (
    <>
-     <Modal isModal={isPostModal} CloseModal={ClosePostModal}>
+     <GlobalModal isModal={isPostModal} CloseModal={ClosePostModal}>
        <div className="margin-xs">
-          <StyledTextArea 
+          <StyledTextAreaWithBorder 
                 rows="4" 
                 cols="50"
                 placeholder="Write your thought..."
@@ -45,7 +46,7 @@ function App() {
                 />
           <PrimaryStyledButton onClick={()=>postHandler()}>Post</PrimaryStyledButton>
           </div>
-     </Modal>
+     </GlobalModal>
      <Toaster/>
      <Routes>
        <Route path="/mock" element={<Mock/>} />

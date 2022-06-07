@@ -3,6 +3,7 @@ import { AuthRoute } from "./AuthRoute"
 import { PrivateRoute } from "./PrivateRoute"
 import { SinglePost } from "./SinglePost/SinglePost";
 import { Aside } from "./Aside/Aside";
-import { Modal } from "./Modal";
+import { GlobalModal } from "./GlobalModal";
+import { LocalModal } from "./LocalModal";
  
-export {NavBar,AuthRoute,PrivateRoute,SinglePost,Aside,Modal}
+export {NavBar,AuthRoute,PrivateRoute,SinglePost,Aside,GlobalModal,LocalModal}

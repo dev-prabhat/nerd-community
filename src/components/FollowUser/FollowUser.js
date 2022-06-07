@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { followUserFromDB , unfollowUserFromDB} from "../../features/auth/authSlice"
-import { StyledUserContainer } from "../../styled.components/Users"
-import {PrimaryStyledButton } from "../../styled.components/Button"
+import { StyledUserContainer , PrimaryStyledButton} from "../../styled.components"
+// import {PrimaryStyledButton } from "../../styled.components/Button"
 
 export const FollowUser = ({user:{_id,firstName,lastName,username,avatarURL}}) => {
     const {loggedUser:{following}} = useSelector(state => state.auth)
@@ -9,9 +9,9 @@ export const FollowUser = ({user:{_id,firstName,lastName,username,avatarURL}}) =
     const dispatch = useDispatch()
     return(
         <StyledUserContainer>
-            <div class="avatar avatar-sm margin-xs">
+            <div className="avatar avatar-sm margin-xs">
                 <img
-                class="img-responsive img-round"
+                className="img-responsive img-round"
                 src={avatarURL}
                 alt="avatar"
                 />
