@@ -6,6 +6,7 @@ const initialState = {
     encodedToken : undefined,
     isLoading:false,
     LoadingUsers:false,
+    isUserEdited:false,
     users:[],
     loggedUser:{}
 }
@@ -17,6 +18,16 @@ export const loginUser = createAsyncThunk("auth/login",async (_,{rejectWithValue
             username: "adarshbalika",
             password: "adarshBalika123",
         })
+        return data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)
+    }
+})
+
+export const editUserProfile = createAsyncThunk("editUser/profile",async(editProfileData,{rejectWithValue})=>{
+    try {
+        const { data } = await axios.post("/api/users/edit",{userData:editProfileData},
+        {headers:{"authorization": localStorage.getItem("encodedToken")}})
         return data
     } catch (error) {
         return rejectWithValue(error.response.data.message)
@@ -90,6 +101,19 @@ const authSlice = createSlice({
         },
         [getUsers.rejected]:(state,{payload})=>{
             state.LoadingUsers = false
+            toast.error(payload,{duration:1000})
+        },
+        [editUserProfile.pending]:(state)=>{
+            state.isUserEdited = true
+        },
+        [editUserProfile.fulfilled]:(state,{payload})=>{
+            state.isUserEdited = false
+            state.loggedUser = payload.user
+            localStorage.removeItem("loggedUser")
+            localStorage.setItem("loggedUser",JSON.stringify(payload?.user))
+        },
+        [editUserProfile.rejected]:(state,{payload})=>{
+            state.isUserEdited = false
             toast.error(payload,{duration:1000})
         },
         [followUserFromDB.pending]:(state)=>{

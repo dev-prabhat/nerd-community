@@ -6,8 +6,7 @@ import "./aside.css"
 
 
 export const Aside = () => {
-  const {users} = useSelector(state => state.auth)
-  const loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+  const {users,loggedUser} = useSelector(state => state.auth)
   const usersExceptLoggedUser = [...users].filter(user => user.username !== loggedUser.username)
 
 

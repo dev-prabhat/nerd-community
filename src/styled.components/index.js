@@ -3,7 +3,11 @@ import { Feed } from "./Feed"
 import { StyledNav , StyledNavLink} from "./Navbar"
 import { StyledSidebar }  from "./Sidebar"
 import { StyledPost } from "./Post"
-import { StyledTextAreaWrapper , StyledTextArea} from "./TextArea"
+import { StyledTextAreaWrapper , StyledTextArea , StyledTextAreaWithBorder} from "./TextArea"
+import { StyledModalWrapper , StyledModal , StyledCloseButton} from "./Modal"
+import { PrimaryStyledButton , PrimaryPostButton} from "./Button"
+import { StyledProfileWrapper } from "./ProfileWrapper"
+import { StyledUserContainer } from "./Users"
 
 export {
     MainContainer,
@@ -13,5 +17,13 @@ export {
     StyledSidebar,
     StyledPost,
     StyledTextArea,
-    StyledTextAreaWrapper
+    StyledTextAreaWrapper,
+    StyledTextAreaWithBorder,
+    StyledModalWrapper, 
+    StyledModal,
+    StyledCloseButton,
+    PrimaryStyledButton, 
+    PrimaryPostButton,
+    StyledProfileWrapper,
+    StyledUserContainer
 }

@@ -16,5 +16,10 @@ const StyledTextArea = styled.textarea`
     margin-top: 0;
     border: none;
 `
+const StyledTextAreaWithBorder = styled(StyledTextArea)`
+    border: 1px solid;
+    padding: 8px;
+    letter-spacing: 0;
+`
 
-export { StyledTextAreaWrapper, StyledTextArea }
+export { StyledTextAreaWrapper, StyledTextArea ,StyledTextAreaWithBorder}

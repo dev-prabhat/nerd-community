@@ -1,5 +1,8 @@
+import { useDispatch } from "react-redux"
 import { NavLink } from "react-router-dom"
+import { OpenPostModal } from "../../features/modal/modalSlice"
 import { StyledNav , StyledNavLink} from "../../styled.components"
+import { PrimaryPostButton } from "../../styled.components/Button"
 import "./navbar.css"
 
 const activeStyle = ({isActive}) => isActive ? 
@@ -9,6 +12,7 @@ const activeStyle = ({isActive}) => isActive ?
 const NavArray = ["Home","Bookmark","Explore","Profile"]
 
 export const NavBar = () => {
+    const dispatch = useDispatch()
     return(
       <StyledNav>  
         <ul>
@@ -22,6 +26,7 @@ export const NavBar = () => {
                 ))
             }
           </ul>
+          <PrimaryPostButton onClick={()=>dispatch(OpenPostModal())}>Create Post</PrimaryPostButton>
       </StyledNav>
     )
 }
