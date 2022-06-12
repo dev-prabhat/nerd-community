@@ -8,6 +8,7 @@ import { StyledModalWrapper , StyledModal , StyledCloseButton} from "./Modal"
 import { PrimaryStyledButton , PrimaryPostButton} from "./Button"
 import { StyledProfileWrapper } from "./ProfileWrapper"
 import { StyledUserContainer } from "./Users"
+import { StyledInput } from "./Input"
 
 export {
     MainContainer,
@@ -25,5 +26,6 @@ export {
     PrimaryStyledButton, 
     PrimaryPostButton,
     StyledProfileWrapper,
-    StyledUserContainer
+    StyledUserContainer,
+    StyledInput
 }

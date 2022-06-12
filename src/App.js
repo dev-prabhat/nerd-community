@@ -2,16 +2,17 @@ import { useEffect , useState} from "react"
 import { useDispatch , useSelector} from "react-redux"
 import { Route, Routes } from "react-router-dom";
 import { getUsers } from "./features/auth/authSlice";
-import { getPosts } from "./features/post/postSlice";
-import { addNewPost } from "./features/post/postSlice";
+import { getPosts , addNewPost } from "./features/post/postSlice";
 import { ClosePostModal } from "./features/modal/modalSlice";
 import { Toaster } from 'react-hot-toast';
 import {  AuthRoute, GlobalModal, PrivateRoute } from "./components";
 import { PrimaryStyledButton } from "./styled.components/Button";
 import { StyledTextAreaWithBorder } from "./styled.components/TextArea";
-import { Login, Home, Profile, Explore, Bookmark, Mock} from "./Pages"
+import { StyledForm } from "./styled.components/Form";
+import { Login, Home, Profile, Explore, Bookmark, Mock, SinglePagePost} from "./Pages"
 
 import "./style.css"
+
 
 
 function App() {
@@ -27,7 +28,9 @@ function App() {
     dispatch(getUsers())
   },[])
 
-  const postHandler = () => {
+  const postHandler = (e) => {
+    e.preventDefault()
+    if(postObj.content.trim() === "") return alert("Invalid Input...")
     dispatch(addNewPost(postObj))
     setPostObj({content:""})
     dispatch(ClosePostModal())
@@ -36,7 +39,8 @@ function App() {
   return (
    <>
      <GlobalModal isModal={isPostModal} CloseModal={ClosePostModal}>
-       <div className="margin-xs">
+       <StyledForm onSubmit={postHandler}>
+          <label>Create New Post</label>
           <StyledTextAreaWithBorder 
                 rows="4" 
                 cols="50"
@@ -44,14 +48,15 @@ function App() {
                 onChange={(e)=>setPostObj(prev => ({...prev,content:e.target.value}))}
                 value={postObj.content}
                 />
-          <PrimaryStyledButton onClick={()=>postHandler()}>Post</PrimaryStyledButton>
-          </div>
+          <PrimaryStyledButton onClick={()=>postHandler()}>New Post</PrimaryStyledButton>
+          </StyledForm>
      </GlobalModal>
      <Toaster/>
      <Routes>
        <Route path="/mock" element={<Mock/>} />
        <Route element={<PrivateRoute/>}>
          <Route path="/home" element={<Home/>}/>
+         <Route path={`/post/:postId`} element={<SinglePagePost/>}/>
          <Route path="/explore" element={<Explore/>} />
          <Route path="/bookmark" element={<Bookmark/>}/>
          <Route path="/profile" element={<Profile/>}/>

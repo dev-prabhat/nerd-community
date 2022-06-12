@@ -11,8 +11,15 @@ const FlexContainer = styled.div`
     align-items: center;
     justify-content: space-between;
 `
-
 const RowFlexContainer = styled(FlexContainer)`
     flex-direction: row;
 `
-export { StyledPost, FlexContainer, RowFlexContainer}
+const StyledCommentWrapper = styled(RowFlexContainer)`
+    margin: 1rem 0;
+    border-bottom: 1px solid ${({theme}) => theme.colors.darkThemeLightColor};
+`
+const StyledComment = styled.p`
+    font-size: 1rem;
+    margin: 0.5rem;
+`
+export { StyledPost, FlexContainer, RowFlexContainer, StyledComment, StyledCommentWrapper}

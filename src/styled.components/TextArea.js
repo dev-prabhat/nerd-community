@@ -20,6 +20,7 @@ const StyledTextAreaWithBorder = styled(StyledTextArea)`
     border: 1px solid;
     padding: 8px;
     letter-spacing: 0;
+    margin: 0.5rem 0;
 `
 
 export { StyledTextAreaWrapper, StyledTextArea ,StyledTextAreaWithBorder}
