@@ -9,21 +9,8 @@
     justify-content: space-between;
 }
 
-.comment__icon,.like__icon,.bookmark__icon,.dislike__icon,.menu__icon,.delete__icon,.edit__icon{
+.delete__icon,.edit__icon{
     font-size: 1.5rem;
     color: var(--primary-theme-light-color);
-    cursor: pointer;
-}
-
-.options__wrapper{
-    z-index: 10;
-    position: absolute;
-    border: 1px solid var(--dark-theme-color);
-    bottom: -20%;
-    right: -15%;
-    background-color: var(--secondary-theme-color);
-}
-
-.icon__wrapper{
     cursor: pointer;
 }

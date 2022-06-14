@@ -1,10 +1,15 @@
 import styled from "styled-components"
 
-export const StyledForm = styled.form`
+const StyledForm = styled.form`
     margin: 0 0.5rem;
 `
 
-export const StyledRowForm = styled(StyledForm)`
+const StyledRowForm = styled(StyledForm)`
     display:flex;
     align-items:center;
 `
+ 
+const StyledLabel = styled.label`
+    color: ${({theme}) => theme.text};
+`
+export { StyledForm, StyledRowForm ,StyledLabel }

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { postComment , getComments} from "../features/comment/commentSlice"
 import { dislikePost, likePost , addToBookmark, removeFromBookmark } from "../features/post/postSlice"
-import { Aside, NavBar } from "../components"
-import { Feed, MainContainer, StyledPost , StyledInput} from "../styled.components"
+import { Aside, Header, NavBar , Loader} from "../components"
+import { Feed, MainContainer, StyledPost , StyledInput, StyledIconButton} from "../styled.components"
 import { FlexContainer, RowFlexContainer } from "../styled.components/Post"
 
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -15,7 +15,7 @@ import { StyledRowForm } from "../styled.components/Form"
 export const SinglePagePost = () => {
     const {posts, bookmarkPosts} = useSelector(state => state.post)
     const {loggedUser} = useSelector(state => state.auth)
-    const {comments} = useSelector(state => state.comment)
+    const {comments, isComment} = useSelector(state => state.comment)
     const reverseComments = [...comments].reverse()
     const [comment, setComment] = useState("")
     const {postId} = useParams()
@@ -40,6 +40,7 @@ export const SinglePagePost = () => {
 
     return(
         <MainContainer>
+            <Header/>
             <NavBar/>
                 <Feed>
                    <StyledPost>
@@ -60,14 +61,25 @@ export const SinglePagePost = () => {
                        </div>
                        <div className="padding-xs">
                             {
-                                isLiked ? 
-                                <FaHeart className="dislike__icon margin-xs" onClick={()=>dispatch(dislikePost(postId))}/> :
-                                <FaRegHeart className="like__icon margin-xs"onClick={()=>dispatch(likePost(postId))} /> 
+                                isLiked ?
+                                <StyledIconButton onClick={()=>dispatch(dislikePost(postId))}>
+                                    <FaHeart />
+                                </StyledIconButton> 
+                                :
+                                <StyledIconButton onClick={()=>dispatch(likePost(postId))} >
+                                    <FaRegHeart />
+                                </StyledIconButton>
+                                 
                             }
                             {
                                 isBookMarked ? 
-                                <MdBookmark className="bookmark__icon margin-xs" onClick={()=>dispatch(removeFromBookmark(postId))} /> :
-                                <MdBookmarkBorder className="bookmark__icon margin-xs" onClick={()=>dispatch(addToBookmark(postId))}/>
+                                <StyledIconButton onClick={()=>dispatch(removeFromBookmark(postId))}>
+                                    <MdBookmark /> 
+                                </StyledIconButton>
+                               :
+                               <StyledIconButton onClick={()=>dispatch(addToBookmark(postId))}>
+                                    <MdBookmarkBorder />
+                               </StyledIconButton>
                             }
                         </div>
                             <StyledRowForm onSubmit={postHandler}>
@@ -77,14 +89,22 @@ export const SinglePagePost = () => {
                                 onChange={(e)=>setComment(e.target.value)}
                                 value={comment}
                                 />
-                                <MdSend className="bookmark__icon margin-xs"/>
+                                <StyledIconButton onClick={postHandler}>
+                                    <MdSend />
+                                </StyledIconButton>
                             </StyledRowForm>
                    </StyledPost>
-                   {
-                     reverseComments.map(comment => (
-                        <Comment key={comment._id} comment={comment} postId={postId}/>
-                     ))
-                   }
+                    {
+                        isComment ? 
+                        <Loader/>:
+                       <div>
+                         {
+                            reverseComments.map(comment => (
+                               <Comment key={comment._id} comment={comment} postId={postId}/>
+                            ))
+                          }
+                       </div>
+                    }
                 </Feed>
             <Aside/>
         </MainContainer>

@@ -12,11 +12,11 @@ const initialState = {
 }
 
 
-export const loginUser = createAsyncThunk("auth/login",async (_,{rejectWithValue})=>{
+export const loginUser = createAsyncThunk("auth/login",async (user,{rejectWithValue})=>{
     try {
         const { data }  = await axios.post("/api/auth/login",{
-            username: "adarshbalika",
-            password: "adarshBalika123",
+            username: user.username,
+            password: user.password,
         })
         return data
     } catch (error) {
@@ -67,11 +67,14 @@ const authSlice = createSlice({
     name:"auth",
     initialState,
     reducers:{
-        checkLogin:(state) => {
-            let token = localStorage.getItem("encodedToken")
+        logoutUser:(state)=>{
+            localStorage.clear()
+            state.encodedToken = undefined
+            state.loggedUser = {}
+        },
+        checkLogin:(state)=>{
+            state.encodedToken = localStorage.getItem("encodedToken")
             state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
-            state.encodedToken = token
-            toast.success(`Login with ${state?.loggedUser?.username}`,{duration:2000})
         }
     },
     extraReducers:{
@@ -148,6 +151,6 @@ const authSlice = createSlice({
 })
 
 
-export const {checkLogin} = authSlice.actions
+export const {logoutUser,checkLogin} = authSlice.actions
 
 export default authSlice.reducer

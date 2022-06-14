@@ -14,4 +14,13 @@ const PrimaryPostButton = styled(PrimaryStyledButton)`
    font-size:1.5rem;
 `
 
-export { PrimaryStyledButton , PrimaryPostButton}
+const StyledIconButton = styled.button`
+    border: none;
+    color:${({theme})=> theme.colors.primaryThemeColor};
+    font-size:1.5rem;
+    background-color: ${({theme}) => theme.body};
+    cursor:pointer;
+    margin: 0 0.5rem;
+`
+
+export { PrimaryStyledButton , PrimaryPostButton, StyledIconButton }

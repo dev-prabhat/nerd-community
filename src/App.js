@@ -1,3 +1,4 @@
+import { ThemeProvider } from "styled-components"
 import { useEffect , useState} from "react"
 import { useDispatch , useSelector} from "react-redux"
 import { Route, Routes } from "react-router-dom";
@@ -8,18 +9,20 @@ import { Toaster } from 'react-hot-toast';
 import {  AuthRoute, GlobalModal, PrivateRoute } from "./components";
 import { PrimaryStyledButton } from "./styled.components/Button";
 import { StyledTextAreaWithBorder } from "./styled.components/TextArea";
-import { StyledForm } from "./styled.components/Form";
+import { StyledForm , StyledLabel} from "./styled.components/Form";
 import { Login, Home, Profile, Explore, Bookmark, Mock, SinglePagePost} from "./Pages"
+import { GlobalStyle , lightTheme , darkTheme } from "./CustomTheme"
 
-import "./style.css"
 
 
 
 function App() {
   const [postObj, setPostObj] = useState({content:""})
   const {isPostModal} = useSelector(state => state.modal)
+  const { theme } = useSelector(state => state.theme)
   const dispatch = useDispatch()
 
+  const isDarkTheme = theme === "darkTheme"
   useEffect(()=>{
      dispatch(getPosts())
   },[])
@@ -38,9 +41,11 @@ function App() {
 
   return (
    <>
+   <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme }>
+    <GlobalStyle/>
      <GlobalModal isModal={isPostModal} CloseModal={ClosePostModal}>
        <StyledForm onSubmit={postHandler}>
-          <label>Create New Post</label>
+          <StyledLabel>Create New Post</StyledLabel>
           <StyledTextAreaWithBorder 
                 rows="4" 
                 cols="50"
@@ -66,6 +71,7 @@ function App() {
          <Route path="/" element={<Login/>}/>
        </Route>
      </Routes>
+     </ThemeProvider>
    </>
   );
 }

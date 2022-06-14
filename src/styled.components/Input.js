@@ -6,7 +6,8 @@ const StyledInput = styled.input`
     border: none;
     border-bottom: 1px solid ${({theme}) => theme.colors.darkThemeColor};
     font-size: 1rem;
-    margin:0px 10px
+    border-radius:0.5rem;
+    margin:0px 10px;
 `
 
 const StyledModalInput = styled.input`

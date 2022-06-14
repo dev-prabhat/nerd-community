@@ -1,12 +1,15 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { deleteComment , editComment} from "../features/comment/commentSlice";
+import { 
+    PrimaryStyledButton , 
+    StyledIconButton , 
+    StyledForm, 
+    StyledModalInput} from "../styled.components";
 import { RowFlexContainer, StyledComment, StyledCommentWrapper } from "../styled.components/Post"
 import { FaTrashAlt,FaRegEdit } from "react-icons/fa"; 
 import { LocalModal } from "./LocalModal";
-import { StyledModalInput } from "../styled.components/Input";
-import { StyledForm } from "../styled.components/Form"
-import { PrimaryStyledButton } from "../styled.components";
+
 
 export const Comment = ({comment,postId}) => {
     const {username,content,_id:commentId,avatarURL} = comment
@@ -41,8 +44,13 @@ export const Comment = ({comment,postId}) => {
                 </div>
             </RowFlexContainer>
             <div>
-                <FaRegEdit onClick={()=>setIsModal(prev => !prev)} className="edit__icon margin-xs"/>
-                <FaTrashAlt onClick={()=>dispatch(deleteComment(commentData))} className="delete__icon margin-xs"/>
+                <StyledIconButton onClick={()=>setIsModal(prev => !prev)}>
+                    <FaRegEdit />
+                </StyledIconButton>
+                <StyledIconButton onClick={()=>dispatch(deleteComment(commentData))}>
+                    <FaTrashAlt />
+                </StyledIconButton>
+                
             </div>
             <LocalModal isModal={isModal} CloseModal={setIsModal}>
                 <StyledForm onSubmit={submitComment}>

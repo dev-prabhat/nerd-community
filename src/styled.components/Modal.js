@@ -10,7 +10,6 @@ const StyledModalWrapper = styled.div`
     right: 0;
     left: 0;
     background-color: ${({theme}) => theme.colors.modalBgColor};
-    cursor: not-allowed;
     z-index: 22;
 `
 
@@ -18,7 +17,7 @@ const StyledModal = styled.div`
     width: 30%;
     position: relative;
     cursor: auto;
-    background-color: ${({theme}) => theme.colors.secondaryThemeColor};
+    background-color: ${({theme}) => theme.body};
     padding: 1rem;
 `
 const StyledCloseButton = styled.button`
