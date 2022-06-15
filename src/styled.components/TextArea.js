@@ -15,11 +15,13 @@ const StyledTextArea = styled.textarea`
     resize: none;
     margin-top: 0;
     border: none;
+    background-color: ${({theme}) => theme.colors.darkThemeLighterColor};
 `
 const StyledTextAreaWithBorder = styled(StyledTextArea)`
     border: 1px solid;
     padding: 8px;
     letter-spacing: 0;
+    margin: 0.5rem 0;
 `
 
 export { StyledTextAreaWrapper, StyledTextArea ,StyledTextAreaWithBorder}

@@ -1,4 +1,4 @@
-import { Aside, NavBar , SinglePost } from "../components"
+import { Aside, Header, NavBar , SinglePost } from "../components"
 import { MainContainer  , Feed} from "../styled.components"
 import { useSelector } from "react-redux"
 
@@ -7,6 +7,7 @@ export const Explore = () => {
    
     return(
         <MainContainer >
+            <Header/>
             <NavBar/>
                 <Feed >
                    {

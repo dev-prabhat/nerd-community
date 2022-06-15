@@ -1,7 +1,7 @@
 import { MdSearch } from "react-icons/md";
 import { StyledSidebar } from "../../styled.components";
 import { useSelector } from "react-redux";
-import { FollowUser } from "../FollowUser/FollowUser";
+import { FollowUser } from "../FollowUser";
 import "./aside.css"
 
 

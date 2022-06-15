@@ -1,5 +1,5 @@
 import { useSelector} from "react-redux"
-import { Aside, NavBar, SinglePost } from "../components"
+import { Aside, Header, NavBar, SinglePost } from "../components"
 import { MainContainer , Feed} from "../styled.components"
 
 
@@ -9,6 +9,7 @@ export const Bookmark = () => {
     
     return(
         <MainContainer>
+           <Header/>
             <NavBar/>
                 <Feed >
                    {

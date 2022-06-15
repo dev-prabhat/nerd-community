@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
-import { followUserFromDB , unfollowUserFromDB} from "../../features/auth/authSlice"
-import { StyledUserContainer , PrimaryStyledButton} from "../../styled.components"
-// import {PrimaryStyledButton } from "../../styled.components/Button"
+import { followUserFromDB , unfollowUserFromDB} from "../features/auth/authSlice"
+import { StyledUserContainer , PrimaryStyledButton} from "../styled.components"
 
 export const FollowUser = ({user:{_id,firstName,lastName,username,avatarURL}}) => {
     const {loggedUser:{following}} = useSelector(state => state.auth)

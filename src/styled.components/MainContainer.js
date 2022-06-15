@@ -6,6 +6,7 @@ export const MainContainer = styled.main`
     width: 90vw;
     margin: 0 auto;
     grid-template-areas: 
+      "header header header"
       "navbar feed sidebar";
 `
 

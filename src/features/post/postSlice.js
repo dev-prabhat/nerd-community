@@ -6,7 +6,6 @@ const initialState = {
     posts:[],
     bookmarkPosts:[],
     isLoading:false,
-    isNewPostAdded:false,
     isPostEdit:false,
     isLike:false,
     isDisLike:false,
@@ -109,15 +108,15 @@ const postSlice =  createSlice({
            state.isLoading = true
        },
        [addNewPost.pending]:(state) => {
-           state.isNewPostAdded = true
+           state.isLoading = true
        },
        [addNewPost.fulfilled]:(state,{payload}) => {
-           state.isNewPostAdded = false
+           state.isLoading = false
            state.posts = payload.posts
            toast.success("Added new Post",{duration:1000})
        },
        [addNewPost.rejected]:(state,{payload}) => {
-           state.isNewPostAdded = false
+            state.isLoading = false
            toast.error(payload,{duration:1000})
        },
        [editPost.pending]:(state)=>{
