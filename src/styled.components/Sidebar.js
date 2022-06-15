@@ -4,5 +4,7 @@ export const StyledSidebar = styled.aside`
    grid-area: sidebar;
    width: 20vw;
    margin: 0 auto;
-   border-left: 1px solid ${({theme}) => theme.colors.darkThemeLightColor};
+   position: fixed;
+   top: 10%;
+   right: 2%;
 `

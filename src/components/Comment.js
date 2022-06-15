@@ -50,7 +50,6 @@ export const Comment = ({comment,postId}) => {
                 <StyledIconButton onClick={()=>dispatch(deleteComment(commentData))}>
                     <FaTrashAlt />
                 </StyledIconButton>
-                
             </div>
             <LocalModal isModal={isModal} CloseModal={setIsModal}>
                 <StyledForm onSubmit={submitComment}>
