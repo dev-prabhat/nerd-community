@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link , useParams} from "react-router-dom"
 import { useState } from "react";
 import { useDispatch , useSelector} from "react-redux";
 import { 
@@ -25,6 +25,7 @@ import "./singlePost.css"
 
 
 export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = false}) => {
+    const {name} = useParams()
     const {_id, content,username,avatarURL,likes :  {likedBy} } = post
     const [showEditPostModal, setShowEditPostModal] = useState(false)
    
@@ -62,7 +63,7 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
             <h5 className="text-gray margin-xs">@{username}</h5>
           </RowFlexContainer>
                 {
-                  isProfilePage && 
+                  isProfilePage && loggedUser.username === name &&
                   <RowFlexContainer>
                      <StyledIconButton onClick={()=>OpenEditModal()}>
                         <BiEdit />
@@ -83,7 +84,7 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
                    </StyledIconButton>
                     : 
                 <div className="btn__wrapper padding-xs">
-                    <Link to={`/post/${_id}`} state={post}>
+                    <Link to={`/post/${_id}`}>
                       <StyledIconButton>
                         <BiComment/>
                       </StyledIconButton>

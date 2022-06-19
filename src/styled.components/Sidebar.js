@@ -6,5 +6,5 @@ export const StyledSidebar = styled.aside`
    margin: 0 auto;
    position: fixed;
    top: 10%;
-   right: 2%;
+   right: 4%;
 `

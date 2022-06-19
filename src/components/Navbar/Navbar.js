@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux"
+import { useDispatch , useSelector} from "react-redux"
 import { NavLink } from "react-router-dom"
 import { OpenPostModal } from "../../features/modal/modalSlice"
 import { StyledNav , StyledNavLink} from "../../styled.components"
@@ -9,22 +9,32 @@ const activeStyle = ({isActive}) => isActive ?
 "btn-link margin-xs d-block font-weight-semibold active-style" : 
 "btn-link margin-xs d-block font-weight-semibold"
 
-const NavArray = ["Home","Bookmark","Explore","Profile"]
-
 export const NavBar = () => {
+    const {loggedUser:{username}} = useSelector(state => state.auth)
     const dispatch = useDispatch()
     return(
       <StyledNav>  
         <ul>
-            {
-                NavArray.map((navitem) => (
-                    <StyledNavLink key={navitem}>
-                        <NavLink className={activeStyle} to={`/${navitem.toLowerCase()}`}> 
-                            {navitem}
-                        </NavLink>
-                    </StyledNavLink>
-                ))
-            }
+            <StyledNavLink>
+                <NavLink className={activeStyle} to="/home">
+                  Home
+                </NavLink>
+            </StyledNavLink>
+            <StyledNavLink>
+                <NavLink className={activeStyle} to="/bookmark">
+                  Bookmark
+                </NavLink>
+            </StyledNavLink>
+            <StyledNavLink>
+                <NavLink className={activeStyle} to="/explore">
+                  Explore
+                </NavLink>
+            </StyledNavLink>
+            <StyledNavLink>
+                <NavLink className={activeStyle} to={`/profile/${username}`}>
+                  Profile
+                </NavLink>
+            </StyledNavLink>
           </ul>
           <PrimaryPostButton onClick={()=>dispatch(OpenPostModal())}>Create Post</PrimaryPostButton>
       </StyledNav>

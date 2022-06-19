@@ -7,7 +7,6 @@ import { StyledTextAreaWrapper , StyledTextArea , StyledTextAreaWithBorder} from
 import { StyledModalWrapper , StyledModal , StyledCloseButton} from "./Modal"
 import { PrimaryStyledButton , PrimaryPostButton, StyledIconButton} from "./Button"
 import { StyledProfileWrapper } from "./ProfileWrapper"
-import { StyledUserContainer } from "./Users"
 import { StyledInput, StyledModalInput} from "./Input"
 import { StyledHeaderWrapper,StyledHeader } from "./Header"
 import { StyledForm , StyledRowForm , StyledLabel} from "./Form"
@@ -29,7 +28,6 @@ export {
     PrimaryPostButton,
     StyledIconButton,
     StyledProfileWrapper,
-    StyledUserContainer,
     StyledInput,
     StyledHeaderWrapper,
     StyledHeader,

@@ -1,7 +1,8 @@
+import { useParams } from "react-router-dom"
 import { useState } from "react"
 import { useSelector , useDispatch} from "react-redux"
 import { Aside, Header, LocalModal, NavBar, SinglePost ,Loader} from "../components"
-import { editUserProfile } from "../features/auth/authSlice"
+import { editUserProfile, followUserFromDB, unfollowUserFromDB } from "../features/auth/authSlice"
 import { 
     MainContainer, 
     Feed, 
@@ -12,14 +13,19 @@ import {
     StyledModalInput,
     StyledForm} from "../styled.components"
 
+import { TiUserAddOutline,TiUserDelete } from "react-icons/ti";
+
 export const Profile = () => {
+    const {name} = useParams()
     const [isModal, setIsModal] = useState(false)
     const {posts, isPostEdit} = useSelector(state => state.post)
-    const {loggedUser} = useSelector(state => state.auth)
-    const initialState = {...loggedUser}
-    const {username,firstName,lastName,bio,avatarURL} = loggedUser
-    const [editProfileData, setEditProfileData] = useState(initialState)
-    const loggedUserPost = posts.filter(post =>  post.username === username)
+    const {loggedUser,users} = useSelector(state => state.auth)
+    const profile = users.filter(user => user.username === name)
+    const {username,firstName,lastName,bio,avatarURL,_id} = profile[0]
+    const {following} = loggedUser
+    const [editProfileData, setEditProfileData] = useState({...profile[0]})
+    const loggedUserPost = posts.filter(post =>  post.username === name)
+    const isFollowing = following.findIndex(usersFollowed => usersFollowed.username === name) === -1 ? false : true
     const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
@@ -49,7 +55,21 @@ export const Profile = () => {
                             <h2 className="head-sm text-gray">@{username}</h2>
                             <p className="text-sm">{bio}</p>
                         </div>
-                        <PrimaryStyledButton onClick={()=>setIsModal(prev => !prev)}>Edit Profile</PrimaryStyledButton>
+                        {
+                            username === loggedUser.username ?
+                            <PrimaryStyledButton onClick={()=>setIsModal(prev => !prev)}>
+                                Edit Profile
+                            </PrimaryStyledButton> :
+                            <>{
+                                isFollowing ? 
+                                <PrimaryStyledButton onClick={()=>dispatch(unfollowUserFromDB(_id))}>
+                                    <TiUserAddOutline/> Unfollow
+                                </PrimaryStyledButton> :
+                                <PrimaryStyledButton onClick={()=>dispatch(followUserFromDB(_id))}>
+                                    <TiUserDelete/> Follow
+                                </PrimaryStyledButton>
+                            }</>
+                        }
                     </StyledProfileWrapper>
                     {
                         isPostEdit ? <Loader/> :

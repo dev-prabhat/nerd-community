@@ -8,7 +8,7 @@ import { MdDarkMode, MdLightMode } from "react-icons/md";
 export const Header = () => {
     const {theme} = useSelector(state => state.theme)
     const dispatch = useDispatch()
-    console.log(theme)
+    
     return(
         <StyledHeaderWrapper>
             <StyledHeader>
