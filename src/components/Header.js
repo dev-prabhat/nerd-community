@@ -14,6 +14,12 @@ export const Header = () => {
             <StyledHeader>
                 SocialCircle
             </StyledHeader>
+            <div className="search__wrapper">
+                <input 
+                    className="search__field border-radius-sm text-center" 
+                    type="text" 
+                    placeholder="Search user here"/>
+            </div>
             <div>
                 {
                    theme === "darkTheme" ? 

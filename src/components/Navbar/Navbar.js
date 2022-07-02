@@ -1,4 +1,4 @@
-import { useDispatch , useSelector} from "react-redux"
+import { useDispatch} from "react-redux"
 import { NavLink } from "react-router-dom"
 import { OpenPostModal } from "../../features/modal/modalSlice"
 import { StyledNav , StyledNavLink} from "../../styled.components"
@@ -10,7 +10,6 @@ const activeStyle = ({isActive}) => isActive ?
 "btn-link margin-xs d-block font-weight-semibold"
 
 export const NavBar = () => {
-    const {loggedUser:{username}} = useSelector(state => state.auth)
     const dispatch = useDispatch()
     return(
       <StyledNav>  
@@ -31,7 +30,7 @@ export const NavBar = () => {
                 </NavLink>
             </StyledNavLink>
             <StyledNavLink>
-                <NavLink className={activeStyle} to={`/profile/${username}`}>
+                <NavLink className={activeStyle} to="/profile">
                   Profile
                 </NavLink>
             </StyledNavLink>

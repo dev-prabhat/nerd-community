@@ -10,7 +10,7 @@ import {  AuthRoute, GlobalModal, PrivateRoute } from "./components";
 import { PrimaryStyledButton } from "./styled.components/Button";
 import { StyledTextAreaWithBorder } from "./styled.components/TextArea";
 import { StyledForm , StyledLabel} from "./styled.components/Form";
-import { Login, Home, Profile, Explore, Bookmark, Mock, SinglePagePost} from "./Pages"
+import { Login, Home, Profile, Explore, Bookmark, Mock, SinglePagePost, LoggedUserProfile} from "./Pages"
 import { GlobalStyle , lightTheme , darkTheme } from "./CustomTheme"
 
 
@@ -64,7 +64,8 @@ function App() {
          <Route path="/post/:postId" element={<SinglePagePost/>}/>
          <Route path="/explore" element={<Explore/>} />
          <Route path="/bookmark" element={<Bookmark/>}/>
-         <Route path="/profile/:name" element={<Profile/>}/>
+         <Route path="/profile/" element={<LoggedUserProfile/>}/>
+         <Route path="/profile/:name" element={<Profile/>} />
        </Route>
 
        <Route element={<AuthRoute/>}>

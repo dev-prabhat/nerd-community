@@ -5,11 +5,12 @@ import { StyledSidebar }  from "./Sidebar"
 import { StyledPost } from "./Post"
 import { StyledTextAreaWrapper , StyledTextArea , StyledTextAreaWithBorder} from "./TextArea"
 import { StyledModalWrapper , StyledModal , StyledCloseButton} from "./Modal"
-import { PrimaryStyledButton , PrimaryPostButton, StyledIconButton} from "./Button"
+import { PrimaryStyledButton , PrimaryPostButton, StyledIconButton,FollowerStyledButton} from "./Button"
 import { StyledProfileWrapper } from "./ProfileWrapper"
 import { StyledInput, StyledModalInput} from "./Input"
 import { StyledHeaderWrapper,StyledHeader } from "./Header"
 import { StyledForm , StyledRowForm , StyledLabel} from "./Form"
+import { StyledAvatarContainer } from "./Avatar"
 
 export {
     MainContainer,
@@ -34,5 +35,7 @@ export {
     StyledForm , 
     StyledRowForm,
     StyledModalInput,
-    StyledLabel
+    StyledLabel,
+    StyledAvatarContainer,
+    FollowerStyledButton
 }

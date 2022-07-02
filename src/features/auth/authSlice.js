@@ -123,6 +123,9 @@ const authSlice = createSlice({
             state.isLoading = true
         },
         [followUserFromDB.fulfilled]:(state,{payload})=>{
+            let followUser = payload?.followUser
+            state.users = state.users.filter(user => user.username !== followUser.username)
+            state.users = [followUser,...state.users]
             state.isLoading = false
             state.loggedUser = payload?.user
             localStorage.removeItem("loggedUser")
@@ -137,6 +140,9 @@ const authSlice = createSlice({
             state.isLoading = true
         },
         [unfollowUserFromDB.fulfilled]:(state,{payload})=>{
+            let followUser = payload?.followUser
+            state.users = state.users.filter(user => user.username !== followUser.username)
+            state.users = [followUser,...state.users]
             state.isLoading = false
             state.loggedUser = payload?.user
             localStorage.removeItem("loggedUser")
