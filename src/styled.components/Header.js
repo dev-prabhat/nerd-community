@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const StyledHeaderWrapper = styled.header`
-    width: 90%;
+    width: 95%;
     padding: 0.5rem 1rem; 
     display: flex;
     align-items: center;
@@ -11,11 +11,24 @@ const StyledHeaderWrapper = styled.header`
     position:fixed;
     background-color: ${({theme}) => theme.body};
     z-index: 22;
+
+    @media screen and (max-width:${({theme}) => theme.breakpoints.mobile}) {
+        width:100%;
+        padding: 0.5rem; 
+    }
 `
 
 const StyledHeader = styled.h1`
     font-size: 2rem;
     color: ${({theme})=>theme.colors.primaryThemeColor};
+
+    @media screen and (max-width:${({theme}) => theme.breakpoints.tablet}) {
+        font-size: 1.5rem;
+    }
+
+    @media screen and (max-width:${({theme}) => theme.breakpoints.mobile}) {
+        font-size: 10px;
+    }
 `
 
 export { StyledHeaderWrapper,StyledHeader }

@@ -19,6 +19,15 @@ const StyledModal = styled.div`
     cursor: auto;
     background-color: ${({theme}) => theme.body};
     padding: 1rem;
+
+    @media screen  and (max-width:${({theme}) => theme.breakpoints.tablet}){
+      width: 60%;
+    }
+
+    @media screen  and (max-width:${({theme}) => theme.breakpoints.mobile}){
+      width: 80%;
+    }
+
 `
 const StyledCloseButton = styled.button`
     display: flex;

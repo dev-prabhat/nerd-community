@@ -1,18 +1,18 @@
 import { useState} from "react"
 import { useDispatch , useSelector} from "react-redux"
 import { addNewPost} from "../features/post/postSlice"
-import { NavBar, SinglePost , Aside, Header , Loader} from "../components"
+import { NavBar, SinglePost , Aside, Header} from "../components"
 import { 
     StyledTextArea, 
     StyledTextAreaWrapper, 
     MainContainer, 
     Feed, 
-    PrimaryStyledButton, 
+    PrimaryStyledButton,
     StyledForm} from "../styled.components"   
 
 export const Home = () => {
     const [postObj, setPostObj] = useState({content:""})
-    const {posts,isLoading}  = useSelector(state => state.post)
+    const {posts}  = useSelector(state => state.post)
     const {loggedUser:{avatarURL}} = useSelector(state => state.auth)
     const reversePosts = [...posts].reverse()
     const dispatch = useDispatch()
@@ -46,20 +46,15 @@ export const Home = () => {
                             onChange={(e)=>setPostObj(prev => ({...prev,content:e.target.value}))}
                             value={postObj.content}
                             />
-                      <PrimaryStyledButton> Post </PrimaryStyledButton>
+                      <PrimaryStyledButton > Post </PrimaryStyledButton>
                     </StyledForm>  
                 </StyledTextAreaWrapper>
                 
                 <div>
                     {
-                        isLoading ? <Loader/> :
-                        <div>
-                            {
-                                reversePosts.map(post => (
-                                        <SinglePost key={post._id} post={post}/>
-                                    ))
-                            }
-                        </div>
+                        reversePosts.map(post => (
+                                <SinglePost key={post._id} post={post}/>
+                            ))
                     }
                 </div>
             </Feed>

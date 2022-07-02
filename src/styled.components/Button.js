@@ -12,6 +12,10 @@ const PrimaryStyledButton = styled.button`
 
 const PrimaryPostButton = styled(PrimaryStyledButton)`
    font-size:1.5rem;
+
+   @media screen and (max-width:${({theme}) => theme.breakpoints.tablet}){
+    display:none;
+   }
 `
 
 const StyledIconButton = styled.button`
@@ -21,6 +25,18 @@ const StyledIconButton = styled.button`
     background-color: ${({theme}) => theme.body};
     cursor:pointer;
     margin: 0 0.5rem;
+
+    @media screen and (max-width:${({theme}) => theme.breakpoints.mobile}){
+        font-size:1rem;
+    }
 `
 
-export { PrimaryStyledButton , PrimaryPostButton, StyledIconButton }
+const FollowerStyledButton = styled.button`
+   margin: 5px 10px;
+   background-color: ${({theme}) => theme.body};
+   color: ${({theme}) => theme.text};
+   cursor:pointer;
+   border: none;
+`
+
+export { PrimaryStyledButton , PrimaryPostButton, StyledIconButton ,FollowerStyledButton}

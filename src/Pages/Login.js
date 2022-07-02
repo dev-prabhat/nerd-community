@@ -51,7 +51,7 @@ export const Login = () => {
                             <label className="margin-xs" htmlFor="remember-md">Remember me</label>
                         </div>
 
-                        <StyledSpan onClick={()=>setUser({username:"adarshbalika",password:"adarshBalika123"})}>
+                        <StyledSpan onClick={()=>setUser({username:"prabhatsingh",password:"prabhatsingh007"})}>
                             Test Credentials
                         </StyledSpan>
                     </RowFlexContainer>

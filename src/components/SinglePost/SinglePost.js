@@ -14,6 +14,7 @@ import {
   StyledTextAreaWithBorder, 
   PrimaryStyledButton , 
   StyledIconButton,
+  StyledAvatarContainer,
   StyledForm} from "../../styled.components";
 import { FlexContainer, RowFlexContainer } from "../../styled.components/Post";
 
@@ -27,19 +28,14 @@ import "./singlePost.css"
 export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = false}) => {
     const {_id, content,username,avatarURL,likes :  {likedBy} } = post
     const [showEditPostModal, setShowEditPostModal] = useState(false)
-   
+    const {loggedUser} = useSelector(state => state.auth)
+
     const [editSinglePost, setEditSinglePost] = useState({...post})
     const {bookmarkPosts} = useSelector(state => state.post)
-    const {loggedUser} = useSelector(state => state.auth)
 
     const isLiked = likedBy.findIndex(like => like.username === loggedUser.username) === -1 ? false : true
     const isBookMarked = bookmarkPosts.findIndex(post => post._id === _id) === -1 ? false : true
     const dispatch = useDispatch()
-
-    const OpenEditModal = () => {
-      setShowEditPostModal(prev => !prev)
-      setShowOptionContainer(prev => !prev)
-    }
 
     const handleEdit = (e) => {
       e.preventDefault()
@@ -52,19 +48,19 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
         <StyledPost>
           <FlexContainer className="position-rel">
            <RowFlexContainer>
-            <div className="avatar avatar-sm margin-xs">
-                <img
-                className="img-responsive img-round "
-                src={avatarURL}
-                alt="avatar"
-                />
-            </div>
+            <StyledAvatarContainer>
+                  <img
+                    className="img-responsive img-round "
+                    src={avatarURL}
+                    alt="avatar"
+                    />
+            </StyledAvatarContainer>
             <h5 className="text-gray margin-xs">@{username}</h5>
           </RowFlexContainer>
                 {
-                  isProfilePage && 
+                  isProfilePage &&
                   <RowFlexContainer>
-                     <StyledIconButton onClick={()=>OpenEditModal()}>
+                     <StyledIconButton onClick={()=>setShowEditPostModal(prev => !prev)}>
                         <BiEdit />
                      </StyledIconButton>
                      <StyledIconButton onClick={()=>dispatch(deletePost(_id))}>
@@ -83,7 +79,7 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
                    </StyledIconButton>
                     : 
                 <div className="btn__wrapper padding-xs">
-                    <Link to={`/post/${_id}`} state={post}>
+                    <Link to={`/post/${_id}`}>
                       <StyledIconButton>
                         <BiComment/>
                       </StyledIconButton>

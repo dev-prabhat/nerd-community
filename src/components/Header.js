@@ -8,12 +8,18 @@ import { MdDarkMode, MdLightMode } from "react-icons/md";
 export const Header = () => {
     const {theme} = useSelector(state => state.theme)
     const dispatch = useDispatch()
-    console.log(theme)
+    
     return(
         <StyledHeaderWrapper>
             <StyledHeader>
                 SocialCircle
             </StyledHeader>
+            <div className="search__wrapper">
+                <input 
+                    className="search__field border-radius-sm text-center" 
+                    type="text" 
+                    placeholder="Search user here"/>
+            </div>
             <div>
                 {
                    theme === "darkTheme" ? 

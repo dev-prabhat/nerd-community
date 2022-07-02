@@ -1,13 +1,39 @@
-import { useDispatch, useSelector } from "react-redux"
-import { followUserFromDB , unfollowUserFromDB} from "../features/auth/authSlice"
-import { StyledUserContainer , PrimaryStyledButton} from "../styled.components"
+import styled from "styled-components"
+import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 
-export const FollowUser = ({user:{_id,firstName,lastName,username,avatarURL}}) => {
-    const {loggedUser:{following}} = useSelector(state => state.auth)
-    const isFollowing = following.findIndex(usersFollowed => usersFollowed._id === _id) === -1 ? false : true 
-    const dispatch = useDispatch()
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: ${({theme}) => theme.text};
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    border: 1px solid ${({theme}) => theme.colors.darkThemeLightColor};
+    border-radius: 1rem;
+    margin: 1rem 0.5rem;
+`
+
+export const FollowUser = ({user:{firstName,lastName,username,avatarURL}}) => {
+    const {loggedUser} = useSelector(store => store.auth)
+    if(loggedUser.username === username) {
+        return (
+            <StyledLink to={`/profile`}>
+                <div className="avatar avatar-sm margin-xs">
+                    <img
+                    className="img-responsive img-round"
+                    src={avatarURL}
+                    alt="avatar"
+                    />
+                </div>
+                <div>
+                    <h3 className="head-sm">{firstName + lastName}</h3>
+                    <h6 className="text-gray">@{username}</h6>
+                </div>
+            </StyledLink>
+        )
+    }
     return(
-        <StyledUserContainer>
+        <StyledLink to={`/profile/${username}`}>
             <div className="avatar avatar-sm margin-xs">
                 <img
                 className="img-responsive img-round"
@@ -19,11 +45,6 @@ export const FollowUser = ({user:{_id,firstName,lastName,username,avatarURL}}) =
                 <h3 className="head-sm">{firstName + lastName}</h3>
                 <h6 className="text-gray">@{username}</h6>
             </div>
-            {
-                isFollowing ? 
-                <PrimaryStyledButton onClick={()=>dispatch(unfollowUserFromDB(_id))}>UnFollow</PrimaryStyledButton> :
-                <PrimaryStyledButton onClick={()=>dispatch(followUserFromDB(_id))}>Follow</PrimaryStyledButton>
-            }
-        </StyledUserContainer>
+        </StyledLink>
     )
 }
