@@ -11,8 +11,10 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { MdBookmarkBorder , MdBookmark , MdSend} from "react-icons/md";
 import { Comment } from "../components/Comment"
 import { StyledRowForm } from "../styled.components/Form"
+import { useWindowScroll } from "../customHooks" 
 
 export const SinglePagePost = () => {
+    useWindowScroll()
     const {posts, bookmarkPosts} = useSelector(state => state.post)
     const {loggedUser} = useSelector(state => state.auth)
     const {comments, isComment} = useSelector(state => state.comment)

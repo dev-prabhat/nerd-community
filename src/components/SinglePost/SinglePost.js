@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import styled from "styled-components"
 import { useState } from "react";
 import { useDispatch , useSelector} from "react-redux";
 import { 
@@ -22,6 +23,10 @@ import { BiComment , BiEdit, BiTrash} from "react-icons/bi";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { MdBookmarkBorder , MdBookmark } from "react-icons/md";
 import "./singlePost.css"
+
+const StyledLink = styled(Link)`
+  text-decoration:none;
+`
 
 export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = false}) => {
     const {_id, content,username,avatarURL, firstName, lastName,likes :  {likedBy} } = post
@@ -54,7 +59,15 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
                     />
             </StyledAvatarContainer>
             <div className="margin-xs">
-              <h5 className="text-gray">@{username}.</h5>
+              {
+                loggedUser.username === username ?
+                <StyledLink to={`/profile`}> 
+                  <h5 className="text-gray">@{username}.</h5>
+                </StyledLink>:
+                <StyledLink to={`/profile/${username}`}> 
+                  <h5 className="text-gray">@{username}.</h5>
+                </StyledLink>
+              }
               <p className="head-sm">{`${firstName} ${lastName}`}</p>
             </div>
           </RowFlexContainer>

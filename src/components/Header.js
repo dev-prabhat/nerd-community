@@ -23,7 +23,7 @@ export const Header = () => {
     let searchUsers = [...users].filter(user => user.firstName.toLowerCase().includes(searchUser.trim().toLowerCase()) )
     return(
         <StyledHeaderWrapper>
-            <StyledHeader>
+            <StyledHeader to="/home">
                 SocialCircle
             </StyledHeader>
             <StyledSearchWrapper>

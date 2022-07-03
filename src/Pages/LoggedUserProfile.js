@@ -3,6 +3,7 @@ import { useSelector , useDispatch} from "react-redux"
 import { Aside, Header, LocalModal, NavBar, SinglePost ,Loader} from "../components"
 import { FollowUser } from "../components/FollowUser"
 import { editUserProfile } from "../features/auth/authSlice"
+import { useDocument, useWindowScroll } from "../customHooks"
 import { 
     MainContainer, 
     Feed, 
@@ -16,6 +17,7 @@ import {
 import { RowFlexContainer } from "../styled.components/Post"
 
 export const LoggedUserProfile = () => {
+    useWindowScroll()
     const [isModal, setIsModal] = useState(false)
     const [showFollowingModal, setShowFollowingModal] = useState(false)
     const [showFollowerModal, setShowFollowerModal] = useState(false)
@@ -24,6 +26,7 @@ export const LoggedUserProfile = () => {
     const {username,firstName,lastName,bio,avatarURL,following,followers} = loggedUser
     const [editProfileData, setEditProfileData] = useState({...loggedUser})
     const loggedUserPost = posts.filter(post =>  post.username === username)
+    useDocument(`${firstName} ${lastName}`)
     const dispatch = useDispatch()
 
     const handleSubmit = (e) => {

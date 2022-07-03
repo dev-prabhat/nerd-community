@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useSelector , useDispatch} from "react-redux"
 import { Aside, Header, LocalModal, NavBar, SinglePost} from "../components"
 import { followUserFromDB, unfollowUserFromDB } from "../features/auth/authSlice"
+import { useDocument, useWindowScroll } from "../customHooks"
 import { 
     MainContainer, 
     Feed, 
@@ -16,6 +17,7 @@ import { FollowUser } from "../components/FollowUser"
 import { useState } from "react"
 
 export const Profile = () => {
+    useWindowScroll()
     const {name} = useParams()
     const {posts} = useSelector(state => state.post)
     const [showFollowingModal, setShowFollowingModal] = useState(false)
@@ -27,6 +29,7 @@ export const Profile = () => {
     const userPosts = posts.filter(post =>  post.username === name)
     const isFollowing = loggedUserFollowing.findIndex(usersFollowed => usersFollowed.username === name) === -1 ? false : true
     const dispatch = useDispatch()
+    useDocument(`${firstName} ${lastName}`)
     return(
         <MainContainer>
             <Header/>
