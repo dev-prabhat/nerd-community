@@ -16,7 +16,6 @@ export const Home = () => {
     const {loggedUser:{avatarURL}} = useSelector(state => state.auth)
     const reversePosts = [...posts].reverse()
     const dispatch = useDispatch()
-   
 
     const postHandler = (e) => {
         e.preventDefault()

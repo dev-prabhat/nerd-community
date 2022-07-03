@@ -11,6 +11,7 @@ import { StyledInput, StyledModalInput} from "./Input"
 import { StyledHeaderWrapper,StyledHeader } from "./Header"
 import { StyledForm , StyledRowForm , StyledLabel} from "./Form"
 import { StyledAvatarContainer } from "./Avatar"
+import { StyledSearchWrapper,StyledSearch,StyledSearchUsersContainer } from "./Search"
 
 export {
     MainContainer,
@@ -37,5 +38,8 @@ export {
     StyledModalInput,
     StyledLabel,
     StyledAvatarContainer,
-    FollowerStyledButton
+    FollowerStyledButton,
+    StyledSearchWrapper,
+    StyledSearch,
+    StyledSearchUsersContainer
 }

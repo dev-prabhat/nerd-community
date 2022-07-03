@@ -7,5 +7,6 @@ import { GlobalModal } from "./GlobalModal";
 import { LocalModal } from "./LocalModal";
 import { Header } from "./Header"
 import { Loader } from "./Loader"
+import { SearchUser } from "./SearchUser";
  
-export {NavBar,AuthRoute,PrivateRoute,SinglePost,Aside,GlobalModal,LocalModal,Header,Loader}
+export {NavBar,AuthRoute,PrivateRoute,SinglePost,Aside,GlobalModal,LocalModal,Header,Loader,SearchUser}

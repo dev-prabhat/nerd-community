@@ -23,10 +23,8 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { MdBookmarkBorder , MdBookmark } from "react-icons/md";
 import "./singlePost.css"
 
-
-
 export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = false}) => {
-    const {_id, content,username,avatarURL,likes :  {likedBy} } = post
+    const {_id, content,username,avatarURL, firstName, lastName,likes :  {likedBy} } = post
     const [showEditPostModal, setShowEditPostModal] = useState(false)
     const {loggedUser} = useSelector(state => state.auth)
 
@@ -55,7 +53,10 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
                     alt="avatar"
                     />
             </StyledAvatarContainer>
-            <h5 className="text-gray margin-xs">@{username}</h5>
+            <div className="margin-xs">
+              <h5 className="text-gray">@{username}.</h5>
+              <p className="head-sm">{`${firstName} ${lastName}`}</p>
+            </div>
           </RowFlexContainer>
                 {
                   isProfilePage &&

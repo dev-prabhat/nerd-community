@@ -2,10 +2,18 @@ import styled from "styled-components";
 
 const StyledLoginForm = styled.form`
     width: 40%;
-    margin: 20vh auto;
+    margin: 5rem auto;
     border: 1px solid ${({theme}) => theme.colors.darkThemeLighterColor};
     border-radius: 0.5em;
     padding: 1rem;
+
+    @media screen and (max-width:${({theme}) => theme.breakpoints.tablet}) {
+       width: 60%;
+    }
+
+    @media screen and (max-width:${({theme}) => theme.breakpoints.mobile}) {
+        width:80%;
+    }
 `
 const StyledLoginInput = styled.input`
     width: 100%;
@@ -13,6 +21,10 @@ const StyledLoginInput = styled.input`
     font-size: 1rem;
     border-radius:0.5rem;
     margin:1rem 0;
+
+    @media screen and (max-width:${({theme}) => theme.breakpoints.mobile}){
+        margin: 0.5rem 0;
+    }
 `
 const StyledH1 = styled.h1`
     font-size: 2rem;
@@ -20,8 +32,14 @@ const StyledH1 = styled.h1`
     text-align: center;
     color:${({theme}) => theme.text};
     margin:1rem 0;
+
+    @media screen and (max-width:${({theme}) => theme.breakpoints.mobile}) {
+        font-size: 1rem;
+        line-height: 10px;
+    }
 `
 const StyledSpan = styled.span`
+    text-align: center;
     color: ${({theme}) => theme.colors.primaryThemeLightColor};
     cursor: pointer;
 `
