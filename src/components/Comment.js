@@ -5,7 +5,8 @@ import {
     PrimaryStyledButton , 
     StyledIconButton , 
     StyledForm, 
-    StyledModalInput} from "../styled.components";
+    StyledModalInput,
+    StyledAvatarContainer} from "../styled.components";
 import { RowFlexContainer, StyledComment, StyledCommentWrapper } from "../styled.components/Post"
 import { FaTrashAlt,FaRegEdit } from "react-icons/fa"; 
 import { LocalModal } from "./LocalModal";
@@ -30,14 +31,14 @@ export const Comment = ({comment,postId}) => {
 
     return(
         <StyledCommentWrapper>
-            <RowFlexContainer >
-                <div class="avatar avatar-sm">
+            <RowFlexContainer>
+                <StyledAvatarContainer>
                     <img
                         class="img-responsive img-round"
                         src={avatarURL}
                         alt="avatar"
                     />
-                </div>
+                </StyledAvatarContainer>
                 <div>
                     <h5 className="text-gray margin-xs">@{username}</h5>
                     <StyledComment>{content}</StyledComment>

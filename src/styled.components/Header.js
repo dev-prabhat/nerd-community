@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 const StyledHeaderWrapper = styled.header`
@@ -18,7 +19,8 @@ const StyledHeaderWrapper = styled.header`
     }
 `
 
-const StyledHeader = styled.h1`
+const StyledHeader = styled(Link)`
+    text-decoration: none;
     font-size: 2rem;
     color: ${({theme})=>theme.colors.primaryThemeColor};
 

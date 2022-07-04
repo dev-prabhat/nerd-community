@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
+import { StyledAvatarContainer } from "../styled.components"
 
 const StyledLink = styled(Link)`
     text-decoration: none;
@@ -13,20 +14,21 @@ const StyledLink = styled(Link)`
     margin: 1rem 0.5rem;
 `
 
+
 export const FollowUser = ({user:{firstName,lastName,username,avatarURL}}) => {
     const {loggedUser} = useSelector(store => store.auth)
     if(loggedUser.username === username) {
         return (
             <StyledLink to={`/profile`}>
-                <div className="avatar avatar-sm margin-xs">
+                <StyledAvatarContainer>
                     <img
-                    className="img-responsive img-round"
-                    src={avatarURL}
-                    alt="avatar"
+                        className="img-responsive img-round"
+                        src={avatarURL}
+                        alt="avatar"
                     />
-                </div>
+                </StyledAvatarContainer>
                 <div>
-                    <h3 className="head-sm">{firstName + lastName}</h3>
+                    <h4 className="head-sm">{firstName + lastName}</h4>
                     <h6 className="text-gray">@{username}</h6>
                 </div>
             </StyledLink>
@@ -34,15 +36,15 @@ export const FollowUser = ({user:{firstName,lastName,username,avatarURL}}) => {
     }
     return(
         <StyledLink to={`/profile/${username}`}>
-            <div className="avatar avatar-sm margin-xs">
+            <StyledAvatarContainer>
                 <img
-                className="img-responsive img-round"
-                src={avatarURL}
-                alt="avatar"
+                    className="img-responsive img-round"
+                    src={avatarURL}
+                    alt="avatar"
                 />
-            </div>
+            </StyledAvatarContainer>
             <div>
-                <h3 className="head-sm">{firstName + lastName}</h3>
+                <h4 className="head-sm">{firstName + lastName}</h4>
                 <h6 className="text-gray">@{username}</h6>
             </div>
         </StyledLink>

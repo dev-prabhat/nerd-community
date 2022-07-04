@@ -2,6 +2,7 @@ import { useState} from "react"
 import { useDispatch , useSelector} from "react-redux"
 import { addNewPost} from "../features/post/postSlice"
 import { NavBar, SinglePost , Aside, Header} from "../components"
+import { useDocument , useWindowScroll} from "../customHooks"
 import { 
     StyledTextArea, 
     StyledTextAreaWrapper, 
@@ -11,12 +12,13 @@ import {
     StyledForm} from "../styled.components"   
 
 export const Home = () => {
+    useWindowScroll()
+    useDocument("Home")
     const [postObj, setPostObj] = useState({content:""})
     const {posts}  = useSelector(state => state.post)
     const {loggedUser:{avatarURL}} = useSelector(state => state.auth)
     const reversePosts = [...posts].reverse()
     const dispatch = useDispatch()
-   
 
     const postHandler = (e) => {
         e.preventDefault()

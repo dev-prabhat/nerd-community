@@ -4,23 +4,26 @@ import { useParams } from "react-router-dom"
 import { postComment , getComments} from "../features/comment/commentSlice"
 import { dislikePost, likePost , addToBookmark, removeFromBookmark } from "../features/post/postSlice"
 import { Aside, Header, NavBar , Loader} from "../components"
-import { Feed, MainContainer, StyledPost , StyledInput, StyledIconButton} from "../styled.components"
+import { Feed, MainContainer, StyledPost , StyledInput, StyledIconButton, StyledAvatarContainer} from "../styled.components"
 import { FlexContainer, RowFlexContainer } from "../styled.components/Post"
 
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { MdBookmarkBorder , MdBookmark , MdSend} from "react-icons/md";
 import { Comment } from "../components/Comment"
 import { StyledRowForm } from "../styled.components/Form"
+import { useWindowScroll } from "../customHooks" 
 
 export const SinglePagePost = () => {
+    useWindowScroll()
     const {posts, bookmarkPosts} = useSelector(state => state.post)
     const {loggedUser} = useSelector(state => state.auth)
     const {comments, isComment} = useSelector(state => state.comment)
     const reverseComments = [...comments].reverse()
     const [comment, setComment] = useState("")
     const {postId} = useParams()
-    const postData = posts.filter(post => post._id === postId)
-    const {username,content,avatarURL,likes:{likedBy}} = postData[0]
+    const postData = posts.find(post => post._id === postId)
+    console.log(postData)
+    const {username, firstName, lastName, content,avatarURL,likes:{likedBy}} = postData
 
 
     const isLiked = likedBy.findIndex(like => like._id === loggedUser._id) === -1 ? false : true
@@ -46,14 +49,17 @@ export const SinglePagePost = () => {
                    <StyledPost>
                        <FlexContainer>
                            <RowFlexContainer>
-                            <div className="avatar avatar-sm margin-xs">
+                            <StyledAvatarContainer>
                                 <img
-                                className="img-responsive img-round "
-                                src={avatarURL}
-                                alt="avatar"
-                                />
+                                    className="img-responsive img-round "
+                                    src={avatarURL}
+                                    alt="avatar"
+                                    />
+                            </StyledAvatarContainer>
+                            <div className="margin-xs">
+                                <h5 className="text-gray">@{username}</h5>
+                                <p className="head-sm">{`${firstName} ${lastName}`}</p>
                             </div>
-                            <h5 className="text-gray margin-xs">@{username}</h5>
                            </RowFlexContainer>
                        </FlexContainer>
                        <div className="content__wrapper">
