@@ -8,5 +8,6 @@ import { LocalModal } from "./LocalModal";
 import { Header } from "./Header"
 import { Loader } from "./Loader"
 import { SearchUser } from "./SearchUser";
+import { InputTextBox } from "./InputTextBox";
  
-export {NavBar,AuthRoute,PrivateRoute,SinglePost,Aside,GlobalModal,LocalModal,Header,Loader,SearchUser}
+export {NavBar,AuthRoute,PrivateRoute,SinglePost,Aside,GlobalModal,LocalModal,Header,Loader,SearchUser,InputTextBox}
