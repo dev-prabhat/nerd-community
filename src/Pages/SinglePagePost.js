@@ -1,7 +1,8 @@
+import styled from "styled-components"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useParams,Link } from "react-router-dom"
 import { postComment , getComments} from "../features/comment/commentSlice"
 import { dislikePost, likePost , addToBookmark, removeFromBookmark } from "../features/post/postSlice"
 import { Aside, Header, NavBar , Loader} from "../components"
@@ -14,6 +15,15 @@ import { Comment } from "../components/Comment"
 import { StyledRowForm } from "../styled.components/Form"
 import { useWindowScroll } from "../customHooks" 
 
+const StyledLink = styled(Link)`
+  text-decoration:none;
+`
+
+const StyledUserName = styled.h3`
+    text-decoration:none;
+    color:${({theme}) => theme.text}
+`
+
 export const SinglePagePost = () => {
     useWindowScroll()
     const {posts, bookmarkPosts} = useSelector(state => state.post)
@@ -25,8 +35,7 @@ export const SinglePagePost = () => {
     const postData = posts.find(post => post._id === postId)
     const {username, firstName, lastName, content,avatarURL,likes:{likedBy}} = postData
 
-
-    const isLiked = likedBy.findIndex(like => like._id === loggedUser._id) === -1 ? false : true
+    const isLiked = likedBy.findIndex(like => like.username === loggedUser.username) === -1 ? false : true
     const isBookMarked = bookmarkPosts.findIndex(post => post._id === postId) === -1 ? false : true
     const dispatch = useDispatch()
 
@@ -57,8 +66,20 @@ export const SinglePagePost = () => {
                                     />
                             </StyledAvatarContainer>
                             <div className="margin-xs">
-                                <h5 className="text-gray">@{username}</h5>
-                                <p className="head-sm">{`${firstName} ${lastName}`}</p>
+                                {loggedUser.username === username ?
+                                <StyledLink to={`/profile`}> 
+                                    <h5 className="text-gray">@{username}.</h5>
+                                    <StyledUserName className="head-sm">
+                                    {`${loggedUser.firstName} ${loggedUser.lastName}`}
+                                    </StyledUserName>
+                                </StyledLink>
+                                :
+                                <StyledLink to={`/profile/${username}`}> 
+                                <h5 className="text-gray">@{username}.</h5>
+                                    <StyledUserName className="head-sm">
+                                    {`${firstName} ${lastName}`}
+                                    </StyledUserName>
+                                </StyledLink>}
                             </div>
                            </RowFlexContainer>
                        </FlexContainer>

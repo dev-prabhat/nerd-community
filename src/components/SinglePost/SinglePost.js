@@ -66,25 +66,19 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
             <div className="margin-xs">
               {
                 loggedUser.username === username ?
-                <>
                   <StyledLink to={`/profile`}> 
                     <h5 className="text-gray">@{username}.</h5>
                     <StyledUserName className="head-sm">
                       {`${loggedUser.firstName} ${loggedUser.lastName}`}
                     </StyledUserName>
                   </StyledLink>
-                 
-                </>
                 :
-                <>
-                  <StyledLink to={`/profile/${username}`}> 
-                     <h5 className="text-gray">@{username}.</h5>
-                     <StyledUserName className="head-sm">
-                        {`${firstName} ${lastName}`}
-                      </StyledUserName>
-                  </StyledLink>
-                 
-                </>
+                <StyledLink to={`/profile/${username}`}> 
+                  <h5 className="text-gray">@{username}.</h5>
+                  <StyledUserName className="head-sm">
+                      {`${firstName} ${lastName}`}
+                    </StyledUserName>
+                </StyledLink>
               }
             </div>
           </RowFlexContainer>
