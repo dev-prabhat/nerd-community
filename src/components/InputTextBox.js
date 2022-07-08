@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import toast from "react-hot-toast"
 import { BsEmojiSmile } from "react-icons/bs";
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -26,7 +27,7 @@ export const InputTextBox = () => {
 
     const postHandler = (e) => {
         e.preventDefault()
-        if(postObj.trim() === "") return alert("Add some content...")
+        if(postObj.trim() === "") return toast.error("Enter some content",{duration:2000})
         dispatch(addNewPost(postObj))
         setPostObj("")
         dispatch(ClosePostModal())
@@ -56,10 +57,13 @@ export const InputTextBox = () => {
                         value={postObj}
                         />
                 </StyledForm>  
-                <StyledIconButton onClick={()=>setIsEmojiVisible(prev =>!prev)}> 
-                    <BsEmojiSmile/>
-                </StyledIconButton>
-                <PrimaryStyledButton onClick={postHandler}> Post </PrimaryStyledButton>
+                <div className="d-flex">
+                    <StyledIconButton onClick={()=>setIsEmojiVisible(prev =>!prev)}> 
+                        <BsEmojiSmile/>
+                    </StyledIconButton>
+                    <PrimaryStyledButton onClick={postHandler}> Post </PrimaryStyledButton>
+                </div>
+                
             </div>
             {isEmojiVisible && 
                 <EmojiPickerWrapper>

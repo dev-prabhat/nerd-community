@@ -28,6 +28,11 @@ const StyledLink = styled(Link)`
   text-decoration:none;
 `
 
+const StyledUserName = styled.h3`
+    text-decoration:none;
+    color:${({theme}) => theme.text}
+`
+
 export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = false}) => {
     const {_id, content,username,avatarURL, firstName, lastName,likes :  {likedBy} } = post
     const [showEditPostModal, setShowEditPostModal] = useState(false)
@@ -61,14 +66,26 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
             <div className="margin-xs">
               {
                 loggedUser.username === username ?
-                <StyledLink to={`/profile`}> 
-                  <h5 className="text-gray">@{username}.</h5>
-                </StyledLink>:
-                <StyledLink to={`/profile/${username}`}> 
-                  <h5 className="text-gray">@{username}.</h5>
-                </StyledLink>
+                <>
+                  <StyledLink to={`/profile`}> 
+                    <h5 className="text-gray">@{username}.</h5>
+                    <StyledUserName className="head-sm">
+                      {`${loggedUser.firstName} ${loggedUser.lastName}`}
+                    </StyledUserName>
+                  </StyledLink>
+                 
+                </>
+                :
+                <>
+                  <StyledLink to={`/profile/${username}`}> 
+                     <h5 className="text-gray">@{username}.</h5>
+                     <StyledUserName className="head-sm">
+                        {`${firstName} ${lastName}`}
+                      </StyledUserName>
+                  </StyledLink>
+                 
+                </>
               }
-              <p className="head-sm">{`${firstName} ${lastName}`}</p>
             </div>
           </RowFlexContainer>
                 {

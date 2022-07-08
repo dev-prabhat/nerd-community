@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { postComment , getComments} from "../features/comment/commentSlice"
@@ -22,7 +23,6 @@ export const SinglePagePost = () => {
     const [comment, setComment] = useState("")
     const {postId} = useParams()
     const postData = posts.find(post => post._id === postId)
-    console.log(postData)
     const {username, firstName, lastName, content,avatarURL,likes:{likedBy}} = postData
 
 
@@ -36,7 +36,7 @@ export const SinglePagePost = () => {
 
     const postHandler = (e) => {
         e.preventDefault()
-        if(comment.trim() === "") return alert("Invalid Input...")
+        if(comment.trim() === "") return toast.error("Invalid Input...",{duration:1000})
         dispatch(postComment({postId,comment}))
         setComment("")
     }

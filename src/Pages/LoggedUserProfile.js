@@ -1,4 +1,5 @@
 import { useState } from "react"
+import toast from "react-hot-toast"
 import { useSelector , useDispatch} from "react-redux"
 import { Aside, Header, LocalModal, NavBar, SinglePost ,Loader} from "../components"
 import { FollowUser } from "../components/FollowUser"
@@ -31,9 +32,7 @@ export const LoggedUserProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(editProfileData.firstName.trim() === "" 
-           && editProfileData.lastName.trim() === ""
-           && editProfileData.bio.trim() === "") return alert("Invalid input...")
+        if(editProfileData.firstName.trim() === "" || editProfileData.lastName.trim() === "" || editProfileData.bio.trim() === "") return toast.error("Enter all fields...",{duration:2000})
         setIsModal(prev => !prev)
         dispatch(editUserProfile(editProfileData))
     }
@@ -102,7 +101,9 @@ export const LoggedUserProfile = () => {
                                 onChange={(e)=>setEditProfileData(prev => ({...prev,bio:e.target.value}))}
                                 required
                             />
-                            <PrimaryStyledButton>Save</PrimaryStyledButton>
+                            <PrimaryStyledButton>
+                                Save
+                            </PrimaryStyledButton>
                         </StyledForm>
                     </LocalModal>
                     <LocalModal isModal={showFollowingModal} CloseModal={setShowFollowingModal}>
