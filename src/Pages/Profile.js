@@ -37,11 +37,17 @@ export const Profile = () => {
                 <Feed>
                     <StyledProfileWrapper>
                         <div className="avatar avatar-md ">
-                            <img
+                            {
+                                avatarURL?
+                                <img
                                 className="img-responsive img-round "
                                 src={avatarURL}
                                 alt="avatar"
-                            />
+                            />:
+                            <div className="avatar avatar-text avatar-text-md">
+                               {`${firstName.slice(0,1).toUpperCase()}${ lastName.slice(0,1).toUpperCase()}`}
+                            </div>
+                            }
                         </div>
                         <div className="margin-sm text-center">
                             <h1 className="head-sm">{firstName} {lastName}</h1>

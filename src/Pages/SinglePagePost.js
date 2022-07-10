@@ -6,7 +6,7 @@ import { useParams,Link } from "react-router-dom"
 import { postComment , getComments} from "../features/comment/commentSlice"
 import { dislikePost, likePost , addToBookmark, removeFromBookmark } from "../features/post/postSlice"
 import { Aside, Header, NavBar , Loader} from "../components"
-import { Feed, MainContainer, StyledPost , StyledInput, StyledIconButton, StyledAvatarContainer} from "../styled.components"
+import { Feed, MainContainer, StyledPost , StyledInput, StyledIconButton, StyledAvatarContainer, StyledAvatar} from "../styled.components"
 import { FlexContainer, RowFlexContainer } from "../styled.components/Post"
 
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -58,20 +58,17 @@ export const SinglePagePost = () => {
                    <StyledPost>
                        <FlexContainer>
                            <RowFlexContainer>
+                           <StyledAvatarContainer>
                            {avatarURL?
-                            <StyledAvatarContainer>
                                 <img
                                     className="img-responsive img-round "
                                     src={avatarURL}
                                     alt="avatar"
-                                    />
-                            </StyledAvatarContainer>:
-                            <StyledAvatarContainer>
-                                <div className="img-round avatar-text"> 
+                                    />:
+                                <StyledAvatar> 
                                     {`${firstName.slice(0,1).toUpperCase()}${ lastName.slice(0,1).toUpperCase()}`}
-                                </div>
-                            </StyledAvatarContainer>}
-                            
+                                </StyledAvatar>}
+                           </StyledAvatarContainer> 
                             <div className="margin-xs">
                                 {loggedUser.username === username ?
                                 <StyledLink to={`/profile`}> 
