@@ -7,7 +7,8 @@ import {
     StyledH1, 
     StyledSpan, 
     StyledLoginButton, 
-    StyledLoginInput
+    StyledLoginInput,
+    StyledLink
 } from "../styled.components/LoginPage"
 import {  StyledLabel, } from "../styled.components"
 
@@ -57,6 +58,9 @@ export const Login = () => {
                         </StyledSpan>
                     </div>                   
                     <StyledLoginButton>Login</StyledLoginButton>
+                    <p className="margin-xs text-center">Create a New Account 
+                        <StyledLink to="/signup">Signup</StyledLink>
+                    </p>
                 </StyledLoginForm>
             </section>
         </main>

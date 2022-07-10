@@ -7,6 +7,9 @@ export const StyledSidebar = styled.aside`
    position: fixed;
    top: 4rem;
    right: 1rem;
+   height:25rem;
+   overflow-y: scroll;
+   scroll-behavior: smooth;
 
    @media screen and (max-width:${({theme}) => theme.breakpoints.tablet}) {
       display: none;

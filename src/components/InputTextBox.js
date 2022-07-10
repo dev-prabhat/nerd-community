@@ -22,7 +22,7 @@ const EmojiPickerWrapper = styled.div`
 export const InputTextBox = () => {
     const [isEmojiVisible, setIsEmojiVisible] = useState(false)
     const [postObj, setPostObj] = useState("")
-    const {loggedUser:{avatarURL}} = useSelector(state => state.auth)
+    const {loggedUser:{avatarURL, firstName, lastName}} = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
     const postHandler = (e) => {
@@ -40,13 +40,20 @@ export const InputTextBox = () => {
 
     return(
         <StyledTextAreaWrapper>
+            {avatarURL ?
             <StyledAvatarContainer>
                 <img
                     className="img-responsive img-round "
                     src={avatarURL}
                     alt="avatar"
                 />
-            </StyledAvatarContainer>
+            </StyledAvatarContainer>:
+            <StyledAvatarContainer>
+                <div className="img-round avatar-text">
+                    {`${firstName.slice(0,1).toUpperCase()}${ lastName.slice(0,1).toUpperCase()}`}
+                </div>
+            </StyledAvatarContainer> 
+            }
             <div className="d-100">
                 <StyledForm>
                     <StyledTextArea 

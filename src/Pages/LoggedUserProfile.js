@@ -43,13 +43,21 @@ export const LoggedUserProfile = () => {
             <NavBar/>
                 <Feed>
                     <StyledProfileWrapper>
-                        <div className="avatar avatar-md ">
-                            <img
-                                className="img-responsive img-round "
-                                src={avatarURL}
-                                alt="avatar"
-                            />
-                        </div>
+                        {
+                            avatarURL?
+                            <div className="avatar avatar-md">
+                                <img
+                                    className="img-responsive img-round"
+                                    src={avatarURL}
+                                    alt="avatar"
+                                />
+                            </div>:
+                            <div className="avatar avatar-md">
+                               <div className="img-round avatar-text avatar-text-md"> 
+                                    {`${firstName.slice(0,1).toUpperCase()}${ lastName.slice(0,1).toUpperCase()}`}
+                                </div>
+                            </div>
+                        }
                         <div className="margin-sm text-center">
                             <h1 className="head-sm">{firstName} {lastName}</h1>
                             <h2 className="head-sm text-gray">@{username}</h2>

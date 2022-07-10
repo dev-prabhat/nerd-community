@@ -7,7 +7,7 @@ import { getPosts } from "./features/post/postSlice";
 import { ClosePostModal } from "./features/modal/modalSlice";
 import { Toaster } from 'react-hot-toast';
 import {  AuthRoute, GlobalModal, InputTextBox, PrivateRoute } from "./components";
-import { Login, Home, Profile, Explore, Bookmark, Mock, SinglePagePost, LoggedUserProfile} from "./Pages"
+import { Login, Home, Profile, Explore, Bookmark, Mock, SinglePagePost, LoggedUserProfile, Signup} from "./Pages"
 import { GlobalStyle , lightTheme , darkTheme } from "./CustomTheme"
 
 
@@ -46,6 +46,7 @@ function App() {
 
        <Route element={<AuthRoute/>}>
          <Route path="/" element={<Login/>}/>
+         <Route path="/signup" element={<Signup/>}/>
        </Route>
      </Routes>
      </ThemeProvider>

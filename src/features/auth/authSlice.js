@@ -24,6 +24,20 @@ export const loginUser = createAsyncThunk("auth/login",async (user,{rejectWithVa
     }
 })
 
+export const signupUser = createAsyncThunk("auth/signup",async(user,{rejectWithValue})=>{
+    try {
+        const { data } = await axios.post("/api/auth/signup",{
+            firstName:user.firstName,
+            lastName:user.lastName,
+            username: user.username,
+            password: user.password,
+        })
+        return data
+    } catch (error) {
+        return rejectWithValue(error.response.data.message)
+    }
+})
+
 export const editUserProfile = createAsyncThunk("editUser/profile",async(editProfileData,{rejectWithValue})=>{
     try {
         const { data } = await axios.post("/api/users/edit",{userData:editProfileData},
@@ -87,11 +101,28 @@ const authSlice = createSlice({
             user.password = undefined
             localStorage.setItem("loggedUser",JSON.stringify(user))
             localStorage.setItem("encodedToken",payload?.encodedToken)
-            state.loggedUser = payload.foundUser
-            state.encodedToken = payload.encodedToken
+            state.loggedUser = payload?.foundUser
+            state.encodedToken = payload?.encodedToken
             toast.success("Login Successfully",{duration:1000})
         }, 
         [loginUser.rejected]:(state,{payload}) => {
+            state.isLoading = false
+            toast.error(payload,{duration:1000})
+        },
+        [signupUser.pending]:(state) => {
+            state.isLoading = true
+        },
+        [signupUser.fulfilled]:(state,{payload}) => {
+            state.isLoading = false
+            let user = payload?.createdUser
+            user.password = undefined
+            localStorage.setItem("loggedUser",JSON.stringify(user))
+            localStorage.setItem("encodedToken",payload?.encodedToken)
+            state.loggedUser = payload.createdUser
+            state.encodedToken = payload.encodedToken
+            toast.success("Signup Successfully",{duration:1000})
+        }, 
+        [signupUser.rejected]:(state,{payload}) => {
             state.isLoading = false
             toast.error(payload,{duration:1000})
         },

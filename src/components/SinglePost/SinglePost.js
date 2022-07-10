@@ -56,13 +56,19 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
         <StyledPost>
           <FlexContainer className="position-rel">
            <RowFlexContainer>
-            <StyledAvatarContainer>
-                  <img
-                    className="img-responsive img-round "
-                    src={avatarURL}
-                    alt="avatar"
-                    />
-            </StyledAvatarContainer>
+           {avatarURL ? 
+                <StyledAvatarContainer>
+                      <img
+                        className="img-responsive img-round "
+                        src={avatarURL}
+                        alt="avatar"
+                        />
+                </StyledAvatarContainer> :
+                <StyledAvatarContainer>
+                <div className="img-round avatar-text">
+                    {`${firstName.slice(0,1).toUpperCase()}${ lastName.slice(0,1).toUpperCase()}`}
+                </div>
+                </StyledAvatarContainer>}
             <div className="margin-xs">
               {
                 loggedUser.username === username ?
