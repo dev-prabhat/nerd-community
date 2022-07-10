@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 const StyledModalWrapper = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     position: fixed;
     top: 0;
@@ -10,12 +10,14 @@ const StyledModalWrapper = styled.div`
     right: 0;
     left: 0;
     background-color: ${({theme}) => theme.colors.modalBgColor};
-    z-index: 22;
+    z-index: 30;
+    min-height:100vh;
 `
 
 const StyledModal = styled.div`
     width: 30%;
     position: relative;
+    margin: 4rem 0;
     cursor: auto;
     background-color: ${({theme}) => theme.body};
     padding: 1rem;
@@ -25,7 +27,7 @@ const StyledModal = styled.div`
     }
 
     @media screen  and (max-width:${({theme}) => theme.breakpoints.mobile}){
-      width: 80%;
+      width: 95%;
     }
 
 `

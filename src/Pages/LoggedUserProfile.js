@@ -1,4 +1,5 @@
 import { useState } from "react"
+import toast from "react-hot-toast"
 import { useSelector , useDispatch} from "react-redux"
 import { Aside, Header, LocalModal, NavBar, SinglePost ,Loader} from "../components"
 import { FollowUser } from "../components/FollowUser"
@@ -31,9 +32,7 @@ export const LoggedUserProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(editProfileData.firstName.trim() === "" 
-           && editProfileData.lastName.trim() === ""
-           && editProfileData.bio.trim() === "") return alert("Invalid input...")
+        if(editProfileData.firstName.trim() === "" || editProfileData.lastName.trim() === "" || editProfileData.bio.trim() === "") return toast.error("Enter all fields...",{duration:2000})
         setIsModal(prev => !prev)
         dispatch(editUserProfile(editProfileData))
     }
@@ -44,12 +43,16 @@ export const LoggedUserProfile = () => {
             <NavBar/>
                 <Feed>
                     <StyledProfileWrapper>
-                        <div className="avatar avatar-md ">
+                    <div className="avatar avatar-md">
+                        {avatarURL?
                             <img
-                                className="img-responsive img-round "
+                                className="img-responsive img-round"
                                 src={avatarURL}
                                 alt="avatar"
-                            />
+                            />:
+                            <div className="img-round avatar-text avatar-text-md"> 
+                                {`${firstName.slice(0,1).toUpperCase()}${ lastName.slice(0,1).toUpperCase()}`}
+                            </div>}
                         </div>
                         <div className="margin-sm text-center">
                             <h1 className="head-sm">{firstName} {lastName}</h1>
@@ -102,7 +105,9 @@ export const LoggedUserProfile = () => {
                                 onChange={(e)=>setEditProfileData(prev => ({...prev,bio:e.target.value}))}
                                 required
                             />
-                            <PrimaryStyledButton>Save</PrimaryStyledButton>
+                            <PrimaryStyledButton>
+                                Save
+                            </PrimaryStyledButton>
                         </StyledForm>
                     </LocalModal>
                     <LocalModal isModal={showFollowingModal} CloseModal={setShowFollowingModal}>

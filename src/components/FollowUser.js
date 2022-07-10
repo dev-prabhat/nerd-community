@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { StyledAvatarContainer } from "../styled.components"
+import { StyledAvatar, StyledAvatarContainer } from "../styled.components"
 
 const StyledLink = styled(Link)`
     text-decoration: none;
@@ -21,11 +21,14 @@ export const FollowUser = ({user:{firstName,lastName,username,avatarURL}}) => {
         return (
             <StyledLink to={`/profile`}>
                 <StyledAvatarContainer>
-                    <img
+                    {avatarURL?<img
                         className="img-responsive img-round"
                         src={avatarURL}
                         alt="avatar"
-                    />
+                    />:
+                    <StyledAvatar> 
+                        {`${firstName.slice(0,1).toUpperCase()}${ lastName.slice(0,1).toUpperCase()}`}
+                    </StyledAvatar>}
                 </StyledAvatarContainer>
                 <div>
                     <h4 className="head-sm">{firstName + lastName}</h4>
@@ -37,11 +40,15 @@ export const FollowUser = ({user:{firstName,lastName,username,avatarURL}}) => {
     return(
         <StyledLink to={`/profile/${username}`}>
             <StyledAvatarContainer>
-                <img
-                    className="img-responsive img-round"
-                    src={avatarURL}
-                    alt="avatar"
-                />
+                {avatarURL?
+                    <img
+                        className="img-responsive img-round"
+                        src={avatarURL}
+                        alt="avatar"
+                    />:
+                    <StyledAvatar> 
+                        {`${firstName.slice(0,1).toUpperCase()}${ lastName.slice(0,1).toUpperCase()}`}
+                    </StyledAvatar>}
             </StyledAvatarContainer>
             <div>
                 <h4 className="head-sm">{firstName + lastName}</h4>

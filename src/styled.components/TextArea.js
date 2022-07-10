@@ -7,6 +7,7 @@ const StyledTextAreaWrapper = styled.div`
     align-items: flex-start;
     border: 1px solid ${({theme}) => theme.colors.darkThemeLightColor};
     border-radius: 8px;
+    position: relative;
 `
 
 const StyledTextArea = styled.textarea`

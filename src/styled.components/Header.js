@@ -11,7 +11,7 @@ const StyledHeaderWrapper = styled.header`
     border-bottom: 1px solid ${({theme}) => theme.colors.primaryThemeLightColor};
     position:fixed;
     background-color: ${({theme}) => theme.body};
-    z-index: 22;
+    z-index: 20;
 
     @media screen and (max-width:${({theme}) => theme.breakpoints.mobile}) {
         width:100%;

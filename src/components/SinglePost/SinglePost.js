@@ -16,6 +16,7 @@ import {
   PrimaryStyledButton , 
   StyledIconButton,
   StyledAvatarContainer,
+  StyledAvatar,
   StyledForm} from "../../styled.components";
 import { FlexContainer, RowFlexContainer } from "../../styled.components/Post";
 
@@ -26,6 +27,11 @@ import "./singlePost.css"
 
 const StyledLink = styled(Link)`
   text-decoration:none;
+`
+
+const StyledUserName = styled.h3`
+    text-decoration:none;
+    color:${({theme}) => theme.text}
 `
 
 export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = false}) => {
@@ -51,24 +57,34 @@ export const SinglePost = ({post , isBookmarkedPage = false , isProfilePage = fa
         <StyledPost>
           <FlexContainer className="position-rel">
            <RowFlexContainer>
-            <StyledAvatarContainer>
-                  <img
-                    className="img-responsive img-round "
-                    src={avatarURL}
-                    alt="avatar"
-                    />
-            </StyledAvatarContainer>
+           <StyledAvatarContainer>
+               {avatarURL ? 
+                      <img
+                        className="img-responsive img-round "
+                        src={avatarURL}
+                        alt="avatar"
+                        /> :
+                  <StyledAvatar>
+                   {`${firstName.slice(0,1).toUpperCase()}${ lastName.slice(0,1).toUpperCase()}`}
+                  </StyledAvatar>}
+              </StyledAvatarContainer>
             <div className="margin-xs">
               {
                 loggedUser.username === username ?
-                <StyledLink to={`/profile`}> 
-                  <h5 className="text-gray">@{username}.</h5>
-                </StyledLink>:
+                  <StyledLink to={`/profile`}> 
+                    <h5 className="text-gray">@{username}.</h5>
+                    <StyledUserName className="head-sm">
+                      {`${loggedUser.firstName} ${loggedUser.lastName}`}
+                    </StyledUserName>
+                  </StyledLink>
+                :
                 <StyledLink to={`/profile/${username}`}> 
                   <h5 className="text-gray">@{username}.</h5>
+                  <StyledUserName className="head-sm">
+                      {`${firstName} ${lastName}`}
+                    </StyledUserName>
                 </StyledLink>
               }
-              <p className="head-sm">{`${firstName} ${lastName}`}</p>
             </div>
           </RowFlexContainer>
                 {

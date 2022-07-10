@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const StyledLoginForm = styled.form`
     width: 40%;
@@ -20,7 +21,7 @@ const StyledLoginInput = styled.input`
     padding: 5px 10px;
     font-size: 1rem;
     border-radius:0.5rem;
-    margin:1rem 0;
+    margin:0.5rem 0;
 
     @media screen and (max-width:${({theme}) => theme.breakpoints.mobile}){
         margin: 0.5rem 0;
@@ -54,6 +55,11 @@ const StyledLoginButton = styled.button`
     cursor: pointer;
     background-color: ${({theme}) => theme.colors.primaryThemeColor};
     color: ${({theme}) => theme.colors.secondaryThemeColor};
+    margin: 0.5rem 0;
 `
-
-export { StyledLoginForm, StyledH1, StyledSpan, StyledLoginButton, StyledLoginInput}
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color:${({theme}) => theme.colors.primaryThemeColor};
+    margin: 10px;
+`
+export { StyledLoginForm, StyledH1, StyledSpan, StyledLoginButton, StyledLoginInput, StyledLink}

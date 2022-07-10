@@ -10,7 +10,7 @@ import { StyledProfileWrapper } from "./ProfileWrapper"
 import { StyledInput, StyledModalInput} from "./Input"
 import { StyledHeaderWrapper,StyledHeader } from "./Header"
 import { StyledForm , StyledRowForm , StyledLabel} from "./Form"
-import { StyledAvatarContainer } from "./Avatar"
+import { StyledAvatarContainer, StyledAvatar } from "./Avatar"
 import { StyledSearchWrapper,StyledSearch,StyledSearchUsersContainer } from "./Search"
 
 export {
@@ -41,5 +41,6 @@ export {
     FollowerStyledButton,
     StyledSearchWrapper,
     StyledSearch,
-    StyledSearchUsersContainer
+    StyledSearchUsersContainer,
+    StyledAvatar
 }

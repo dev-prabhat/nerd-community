@@ -1,57 +1,43 @@
-import { useState} from "react"
-import { useDispatch , useSelector} from "react-redux"
-import { addNewPost} from "../features/post/postSlice"
-import { NavBar, SinglePost , Aside, Header} from "../components"
+import { useSelector , useDispatch} from "react-redux"
+import { FaEdit } from "react-icons/fa";
+import styled from "styled-components";
+import { NavBar, SinglePost , Aside, Header, InputTextBox} from "../components"
 import { useDocument , useWindowScroll} from "../customHooks"
-import { 
-    StyledTextArea, 
-    StyledTextAreaWrapper, 
-    MainContainer, 
-    Feed, 
-    PrimaryStyledButton,
-    StyledForm} from "../styled.components"   
+import { MainContainer, Feed, StyledIconButton} from "../styled.components"   
+import { OpenPostModal } from "../features/modal/modalSlice";
+
+
+const StyledCreateIconButton = styled(StyledIconButton)`
+    position: fixed;
+    bottom:15%;
+    right:5%;
+    display:none;
+    background-color: ${({theme}) => theme.text};
+    padding:1rem;
+    border-radius:50%;
+    font-size:1.5rem;
+    @media screen and (max-width:${({theme}) => theme.breakpoints.tablet}){
+        display:block;
+    }
+
+    @media screen and (max-width:${({theme}) => theme.breakpoints.mobile}){
+        bottom:10%;
+    }
+`
 
 export const Home = () => {
     useWindowScroll()
     useDocument("Home")
-    const [postObj, setPostObj] = useState({content:""})
     const {posts}  = useSelector(state => state.post)
-    const {loggedUser:{avatarURL}} = useSelector(state => state.auth)
     const reversePosts = [...posts].reverse()
     const dispatch = useDispatch()
 
-    const postHandler = (e) => {
-        e.preventDefault()
-        if(postObj.content.trim() === "") return alert("Add some content...")
-        dispatch(addNewPost(postObj))
-        setPostObj({content:""})
-    }
-
     return(
-        <MainContainer>
+        <MainContainer className="position-rel">
             <Header/>
             <NavBar/>
             <Feed>
-                <StyledTextAreaWrapper>
-                    <div className="avatar avatar-sm ">
-                        <img
-                            className="img-responsive img-round "
-                            src={avatarURL}
-                            alt="avatar"
-                        />
-                    </div>
-                    <StyledForm onSubmit={postHandler}>
-                      <StyledTextArea 
-                            rows="4" 
-                            cols="50"
-                            placeholder="Write your thought..."
-                            onChange={(e)=>setPostObj(prev => ({...prev,content:e.target.value}))}
-                            value={postObj.content}
-                            />
-                      <PrimaryStyledButton > Post </PrimaryStyledButton>
-                    </StyledForm>  
-                </StyledTextAreaWrapper>
-                
+                <InputTextBox/>
                 <div>
                     {
                         reversePosts.map(post => (
@@ -61,6 +47,9 @@ export const Home = () => {
                 </div>
             </Feed>
             <Aside/>
+            <StyledCreateIconButton onClick={()=>dispatch(OpenPostModal())}>
+                <FaEdit/>
+            </StyledCreateIconButton>
         </MainContainer>
     )
 }
